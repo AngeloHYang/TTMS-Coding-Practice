@@ -24,6 +24,7 @@ struct ticketHistory
 	long long int movieID;
 	long long int shouldWatchDay;
 	int status; // 0 for not sold, 1 for sold, 2 for watched, 3 for returned.
+
 	struct ticketHistory* next;
 };
 
@@ -35,4 +36,16 @@ struct brokenSeatHistory
 	int whichColumn;
 	long long int startDay;
 	long long int endDay;
+
+	struct brokenSeatHistory* next;
+};
+
+struct user
+{
+	char username[1000];
+
+	// 0 for God, 1 for admin, 2 for manager, 3 for ticketSeller
+	int userGroup;
+
+	struct user* next;
 };

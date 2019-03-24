@@ -116,6 +116,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.c" />
+    <ClCompile Include="stringRelated.c" />
     <ClCompile Include="test.c" />
   </ItemGroup>
   <ItemGroup>
