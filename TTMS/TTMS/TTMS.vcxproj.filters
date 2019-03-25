@@ -29,5 +29,8 @@
     <ClInclude Include="usedVariableTypes.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="stringRelated.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
