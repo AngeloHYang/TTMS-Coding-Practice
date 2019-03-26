@@ -24,12 +24,21 @@
     <ClCompile Include="stringRelated.c">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="loadAndSave.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="userRelated.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="usedVariableTypes.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="stringRelated.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="userRelated.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
