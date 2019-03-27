@@ -44,10 +44,13 @@ struct user
 {
 	char username[1000];
 	char password[1000];
+
 	// 0 for God, 1 for admin, 2 for manager, 3 for ticketSeller
 	int userGroup;
 
 	struct user* next;
 };
 
-extern struct user* userStart;
+extern struct user* userStart; // The start of users.
+
+extern int today;

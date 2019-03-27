@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="源文件\basic">
+      <UniqueIdentifier>{1bb887ae-81e6-4e5e-a82e-c0deb6e96930}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\view">
+      <UniqueIdentifier>{27df20bf-3b7e-4134-8755-54d522976483}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.c">
@@ -21,14 +27,20 @@
     <ClCompile Include="test.c">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="stringRelated.c">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="loadAndSave.c">
-      <Filter>源文件</Filter>
+      <Filter>源文件\basic</Filter>
+    </ClCompile>
+    <ClCompile Include="stringRelated.c">
+      <Filter>源文件\basic</Filter>
     </ClCompile>
     <ClCompile Include="userRelated.c">
-      <Filter>源文件</Filter>
+      <Filter>源文件\basic</Filter>
+    </ClCompile>
+    <ClCompile Include="login.c">
+      <Filter>源文件\view</Filter>
+    </ClCompile>
+    <ClCompile Include="admin.c">
+      <Filter>源文件\view</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

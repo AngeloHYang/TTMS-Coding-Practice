@@ -66,7 +66,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="admin.c" />
     <ClCompile Include="loadAndSave.c" />
+    <ClCompile Include="login.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="stringRelated.c" />
     <ClCompile Include="test.c" />
