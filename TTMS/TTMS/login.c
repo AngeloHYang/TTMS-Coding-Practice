@@ -109,7 +109,8 @@ void welcome()
 		deleteSpaceInTheEnd(userInput, 1000);
 		if (strcmp(userInput, "1") == 0)
 		{
-
+			extern void godView();
+			godView();
 		}
 		else if (strcmp(userInput, "2") == 0)
 		{
@@ -119,8 +120,8 @@ void welcome()
 		{
 			if (loginWithPassword(userStart, 3) == 1)
 			{
-				extern void admin();
-				admin();
+				extern void adminView();
+				adminView();
 			}
 		}
 		else if (strcmp(userInput, "4") == 0)

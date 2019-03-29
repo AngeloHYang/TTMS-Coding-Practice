@@ -42,6 +42,9 @@
     <ClCompile Include="admin.c">
       <Filter>源文件\view</Filter>
     </ClCompile>
+    <ClCompile Include="god.c">
+      <Filter>源文件\view</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="usedVariableTypes.h">
