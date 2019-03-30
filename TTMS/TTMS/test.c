@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include "userRelated.h"
 #include "usedVariableTypes.h"
+#include "movieRelated.h"
+#include "studioRelated.h"
 void test()
 {
 	/*
@@ -32,6 +34,23 @@ void test()
 	
 	printf("The NO.2 is %s\n", userCheckByWhichOne(userStart, 2)->username);
 	*/
+	/*
+	printf("studios: %d\n", howManyStudios(studioStart));
+	studioStart = addStudio(studioStart, 1, 3, 4, 5);
+	studioStart = addStudio(studioStart, 2, 3, 5, 1);
+	studioStart = addStudio(studioStart, 3, 6, 11, 14);
+	printf("studios: %d\n", howManyStudios(studioStart));
+
+	studioStart = deleteStudioByWhichOne(studioStart, 1);
+	struct studio* swap;
+	for (int whichOne = 1; whichOne <= howManyStudios(studioStart); whichOne++)
+	{
+		swap = studioCheckByWhichOne(studioStart, whichOne);
+		printf("%d) %d\n", whichOne, swap->ID);
+	}*/
+	//printf("counter: %lld\n", studioIDCounter);
+	//studioIDCounter++;
+
 	printf("The test is over!\n");
 	system("pause");
 }

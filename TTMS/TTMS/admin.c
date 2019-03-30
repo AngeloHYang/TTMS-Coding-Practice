@@ -54,7 +54,7 @@ void changePasswordMenu()
 	{
 		memset(userInput, '\0', sizeof(userInput));
 		system("cls");
-		printf("Whose password do you feel like changing?\n");
+		printf("Whose password do you feel like changing?\n\n");
 		struct user* userSwap;
 		for (int whichUser = 2; whichUser <= (howManyUsersByKind(userStart, 0) + howManyUsersByKind(userStart, 1) + howManyUsersByKind(userStart, 2) + howManyUsersByKind(userStart, 3)); whichUser++)
 		{
@@ -80,7 +80,41 @@ void changePasswordMenu()
 			changePassword(4);
 		}
 	}
-	system("pause");
+}
+
+void manageStudioMenu()
+{
+	char userInput[1000];
+	while (strcmp(userInput, "exit") != 0)
+	{
+		memset(userInput, '\0', sizeof(userInput));
+		system("cls");
+		printf("Today: %d\n", today);
+		printf("What do you want to do with studios?\n\n");
+		printf("1) View all\n");
+		printf("2) Add a studio\n");
+		printf("3) Delete a studio\n");
+		printf("4) Report a broken seat\n");
+
+
+		printf("\n\nInput exit to quit\n\nYour input: ");
+		gets_s(userInput, 1000);
+		deleteSpaceInTheEnd(userInput, 1000);
+
+		// Process input
+		if (strcmp(userInput, "1") == 0)
+		{
+			
+		}
+		else if (strcmp(userInput, "2") == 0)
+		{
+			
+		}
+		else if (strcmp(userInput, "3") == 0)
+		{
+			
+		}
+	}
 }
 
 void adminView()
@@ -98,6 +132,7 @@ void adminView()
 		printf("What are you going to do?\n");
 
 		printf("\n1) Change passwords");
+		printf("\n2) Manage studios");
 
 
 		printf("\n\nInput exit to quit\n\nYour input: ");
@@ -106,6 +141,10 @@ void adminView()
 		if (strcmp(userInput, "1") == 0)
 		{
 			changePasswordMenu();
+		}
+		if (strcmp(userInput, "2") == 0)
+		{
+			manageStudioMenu();
 		}
 	}
 }

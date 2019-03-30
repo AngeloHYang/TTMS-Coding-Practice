@@ -1,5 +1,6 @@
 #pragma once
 struct movie
+// A movie cannot be played once more if it's over endDay
 {
 	char name[1000];
 	int price;
@@ -14,7 +15,7 @@ struct studio
 	long long int ID;
 	int lines;
 	int columns;
-	long long int moviePlayingID;
+	long long int moviePlayingID; // -1 stands for no movie's playing
 	struct studio* next;
 };
 
@@ -51,6 +52,17 @@ struct user
 	struct user* next;
 };
 
+
+// Global variables
+
 extern struct user* userStart; // The start of users.
 
 extern int today;
+
+extern struct movie* movieStart;
+
+extern long long int movieIDCounter;
+
+extern long long int studioIDCounter;
+
+extern struct studio* studioStart;

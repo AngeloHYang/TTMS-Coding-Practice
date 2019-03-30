@@ -71,12 +71,16 @@
     <ClCompile Include="loadAndSave.c" />
     <ClCompile Include="login.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="movieRelated.c" />
     <ClCompile Include="stringRelated.c" />
+    <ClCompile Include="studioRelated.c" />
     <ClCompile Include="test.c" />
     <ClCompile Include="userRelated.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="movieRelated.h" />
     <ClInclude Include="stringRelated.h" />
+    <ClInclude Include="studioRelated.h" />
     <ClInclude Include="usedVariableTypes.h" />
     <ClInclude Include="userRelated.h" />
   </ItemGroup>

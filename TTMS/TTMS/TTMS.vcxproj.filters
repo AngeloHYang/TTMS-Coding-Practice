@@ -45,6 +45,12 @@
     <ClCompile Include="god.c">
       <Filter>源文件\view</Filter>
     </ClCompile>
+    <ClCompile Include="movieRelated.c">
+      <Filter>源文件\basic</Filter>
+    </ClCompile>
+    <ClCompile Include="studioRelated.c">
+      <Filter>源文件\basic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="usedVariableTypes.h">
@@ -54,6 +60,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="userRelated.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="movieRelated.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="studioRelated.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
