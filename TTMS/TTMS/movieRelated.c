@@ -97,3 +97,24 @@ struct movie* deleteMovieByWhichOne(struct movie* movieStart, long long int whic
 		return movieStart;
 	}
 }
+
+struct movie* movieCheckByID(long long int inputID)
+{
+	struct movie* movieSwap;
+	if (inputID == -1)
+	{
+		return NULL;
+	}
+	else
+	{
+		for (long long int whichMovie = 1; whichMovie <= howManyMovies(movieStart); whichMovie++)
+		{
+			movieSwap = movieCheckByWhichOne(movieStart, whichMovie);
+			if (movieSwap->ID == inputID)
+			{
+				return movieSwap;
+			}
+		}
+		return NULL;
+	}
+}

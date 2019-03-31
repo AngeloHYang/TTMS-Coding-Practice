@@ -4,14 +4,17 @@
 #include "userRelated.h"
 #include "usedVariableTypes.h"
 #include "stringRelated.h"
+#include "studioRelated.h"
+#include "movieRelated.h"
 
+//  Below are changing password related
 void changePassword(int whichUser)
 // Don't forger about 1 being 2
 {
 	struct user* userSwap;
 	userSwap = userCheckByWhichOne(userStart, whichUser);
 	system("cls");
-	printf("We are going to change the password of user %s\n", userSwap->username);
+	printf("We are going to change the password of user %s (within 20)\n", userSwap->username);
 
 	char oldInput[1000];
 	char newInput1[1000];
@@ -34,7 +37,7 @@ void changePassword(int whichUser)
 	{
 		printf("\n\nThe two new passwords don't match!\nFail to reset password of user %s!", userSwap->username);
 	}
-	else if (strlen(newInput1) == 0)
+	else if (strlen(newInput1) == 0 || strlen(newInput1) > 20)
 	{
 		printf("\n\nInvalid new password!\nFail to reset password of user %s!", userSwap->username);
 	} else
@@ -82,6 +85,182 @@ void changePasswordMenu()
 	}
 }
 
+// Below are studio management related
+
+void viewAll()
+{
+	char userInput[1000];
+
+	struct studio* studioSwap;
+	struct movie* movieSwap;
+
+	while (strcmp(userInput, "exit") != 0)
+	{
+		memset(userInput, '\0', sizeof(userInput));
+		system("cls");
+		printf("Today: %d\n", today);
+		printf("There are %d studios:\n", howManyStudios(studioStart));
+		
+		for (long long int whichStudio = 1; whichStudio <= howManyStudios(studioStart); whichStudio++)
+		{
+			studioSwap = studioCheckByWhichOne(studioStart, whichStudio);
+			printf("Studio NO.%lld\n", whichStudio);
+			printf("Studio ID: %lld\n", studioSwap->ID);
+			printf("Movie playing: ");
+			movieSwap = movieCheckByID(studioSwap->moviePlayingID);
+			if (movieSwap == NULL)
+			{
+				printf("No movie playing now\n");
+			}
+			else
+			{
+				printf("%s\n", movieSwap->name);
+			}
+			printf("Seats:\n");
+			for (int whichLine = 1; whichLine <= studioSwap->lines; whichLine++)
+			{
+				for (int whichColumn = 1; whichColumn <= studioSwap->columns; whichColumn++)
+				{
+					printf("¡õ");
+				}
+				printf("\n");
+			}
+			printf("\n\n");
+		}
+
+
+		printf("\n\nInput exit to quit\n\nYour input: ");
+		gets_s(userInput, 1000);
+		deleteSpaceInTheEnd(userInput, 1000);
+
+	}
+}
+
+void addStudioMenu()
+{
+	system("cls");
+	printf("Today: %d\n", today);
+	printf("We are going to add a studio!\n");
+	printf("\n- How Many lines of seats will there be?\n");
+	printf("- ");
+	int lines;
+	scanf_s("%d", &lines);
+	printf("\n- How Many columns of seats will there be?\n");
+	printf("- ");
+	int columns;
+	scanf_s("%d", &columns);
+	getchar();
+	
+	studioIDCounter++;
+	printf("\n\nIs this allright?(y/n)\n");
+	printf("Studio ID: %lld\n", studioIDCounter);
+	printf("Seats:\n");
+	for (int whichLine = 1; whichLine <= lines; whichLine++)
+	{
+		for (int whichColumn = 1; whichColumn <= columns; whichColumn++)
+		{
+			printf("¡õ");
+		}
+		printf("\n");
+	}
+	printf("\n");
+	printf("Your input: ");
+	char inputSpace[1000];
+	memset(inputSpace, '\0', sizeof(inputSpace));
+	gets_s(inputSpace, 1000);
+	deleteSpaceInTheEnd(inputSpace, 1000);
+	if (strcmp(inputSpace, "y") == 0)
+	{
+		studioStart = addStudio(studioStart, studioIDCounter, lines, columns, -1);
+		printf("\nAdded successfully!\n");
+		system("pause");
+	}
+	else
+	{
+		printf("\nFail to add the studio!\n");
+		system("pause");
+	}
+}
+
+void deleteStudioMenu()
+// Danger
+{
+	system("cls");
+	printf("Today: %d\n", today);
+	printf("We are going to delete a studio!\n");
+
+	char userInput[1000];
+	memset(userInput, '\0', sizeof(userInput));
+	printf("Feel like going back and check out the ID of the studio that you are going to delete?(y/n)\n");
+	printf("Your input: ");
+	gets_s(userInput, 1000);
+	deleteSpaceInTheEnd(userInput, 1000);
+	if (strcmp(userInput, "n") == 0)
+	// If the user knows the ID
+	{
+		printf("Please input the ID of the studio that you are going to delete: ");
+		long long int inputID;
+		scanf_s("%lld", &inputID);
+		getchar();
+		int studioWhichOne;
+		studioWhichOne = studioCheckByIDAndReturnWhichOne(studioStart, inputID);
+		if (studioWhichOne == -1)
+		{
+			printf("Input ID ERROR!\n");
+			system("pause");
+		}
+		else
+		{
+			struct studio* studioSwap;
+			studioSwap = studioCheckByWhichOne(studioStart, studioWhichOne);
+			printf("\n\nAre you sure to delete this studio?(y/n)\n");
+			printf("Studio ID: %lld\n", studioIDCounter);
+			printf("Movie Playing: ");
+			struct movie* movieSwap = movieCheckByID(studioSwap->moviePlayingID);
+			if (movieSwap == NULL)
+			{
+				printf("No movie playing now\n");
+			}
+			else
+			{
+				printf("%s\n", movieSwap->name);
+			}
+			printf("Seats:\n");
+			for (int whichLine = 1; whichLine <= studioSwap->lines; whichLine++)
+			{
+				for (int whichColumn = 1; whichColumn <= studioSwap->columns; whichColumn++)
+				{
+					printf("¡õ");
+				}
+				printf("\n");
+			}
+			printf("\n");
+			printf("Your input: ");
+			char inputSpace[1000];
+			memset(inputSpace, '\0', sizeof(inputSpace));
+			gets_s(inputSpace, 1000);
+			deleteSpaceInTheEnd(inputSpace, 1000);
+			if (strcmp(inputSpace, "y") == 0)
+			{
+				studioStart = deleteStudioByWhichOne(studioStart, studioWhichOne);
+				printf("\nDeleted successfully!\n");
+				system("pause");
+			}
+			else
+			{
+				printf("\nFail to delete the studio!\n");
+				system("pause");
+			}
+		}
+	}
+	// If the user doesn't know the ID
+	else
+	{
+		printf("We are going back now!\n");
+		system("pause");
+	}
+}
+
 void manageStudioMenu()
 {
 	char userInput[1000];
@@ -90,7 +269,7 @@ void manageStudioMenu()
 		memset(userInput, '\0', sizeof(userInput));
 		system("cls");
 		printf("Today: %d\n", today);
-		printf("What do you want to do with studios?\n\n");
+		printf("What do you want to do with the studios?\n\n");
 		printf("1) View all\n");
 		printf("2) Add a studio\n");
 		printf("3) Delete a studio\n");
@@ -104,15 +283,19 @@ void manageStudioMenu()
 		// Process input
 		if (strcmp(userInput, "1") == 0)
 		{
-			
+			viewAll();
 		}
 		else if (strcmp(userInput, "2") == 0)
 		{
-			
+			addStudioMenu();
 		}
 		else if (strcmp(userInput, "3") == 0)
 		{
-			
+			deleteStudioMenu();
+		}
+		else if (strcmp(userInput, "4") == 0)
+		{
+
 		}
 	}
 }

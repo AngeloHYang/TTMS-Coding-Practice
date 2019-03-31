@@ -5,3 +5,5 @@ extern struct studio* addStudio(struct studio* studioStart, long long int ID, in
 extern struct studio* studioCheckByWhichOne(struct studio* studioStart, long long int whichOne);
 
 extern struct studio* deleteStudioByWhichOne(struct studio* studioStart, long long int whichOne);
+
+extern int studioCheckByIDAndReturnWhichOne(struct studio* studioStart, long long int inputID);

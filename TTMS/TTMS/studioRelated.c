@@ -54,6 +54,7 @@ struct studio* studioCheckByWhichOne(struct studio* studioStart, long long int w
 {
 	long long int counter = 1;
 	struct studio* operate = studioStart;
+	
 	while (counter != whichOne)
 	{
 		counter++;
@@ -94,4 +95,18 @@ struct studio* deleteStudioByWhichOne(struct studio* studioStart, long long int 
 	{
 		return studioStart;
 	}
+}
+
+int studioCheckByIDAndReturnWhichOne(struct studio* studioStart, long long int inputID)
+{
+	struct studio* studioSwap;
+	for (int whichOne = 1; whichOne <= howManyStudios(studioStart); whichOne++)
+	{
+		studioSwap = studioCheckByWhichOne(studioStart, whichOne);
+		if (studioSwap->ID == inputID)
+		{
+			return whichOne;
+		}
+	}
+	return -1;
 }

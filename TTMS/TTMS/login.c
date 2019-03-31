@@ -48,7 +48,7 @@ struct  user* createUserWhenFirstLggingIn(struct user* userStart, char userName[
 		printf("\n- Once again: ");
 		inputPassword(passwordSpace2, 21);
 		printf("\n");
-		if (strcmp(passwordSpace, passwordSpace2) != 0 || strcmp(passwordSpace, empty) == 0 || strcmp(passwordSpace2, empty) == 0)
+		if (strcmp(passwordSpace, passwordSpace2) != 0 || strcmp(passwordSpace, empty) == 0 || strcmp(passwordSpace2, empty) == 0 || strlen(passwordSpace) > 20)
 		{
 			printf("\nPASSWORDS INCOMPATIBLE!!!\n");
 			system("pause");
@@ -68,6 +68,7 @@ void hacker()
 		memset(inputThings, '\0', sizeof(inputThings));
 		system("cls");
 		printf("Congratulations, People Hacker!\n");
+		printf("You've successfully hacked into the system!\n");
 		printf("Here are passwords of every user:\n");
 		struct user* swap;
 

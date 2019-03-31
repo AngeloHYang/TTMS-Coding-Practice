@@ -5,3 +5,5 @@ extern struct movie* addMovie(struct movie* movieStart, char name[1000], int pri
 extern struct movie* movieCheckByWhichOne(struct movie* movieStart, long long int whichOne);
 
 extern struct movie* deleteMovieByWhichOne(struct movie* movieStart, long long int whichOne);
+
+extern struct movie* movieCheckByID(long long int inputID);
