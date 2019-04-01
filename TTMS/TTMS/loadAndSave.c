@@ -4,6 +4,7 @@
 #include "userRelated.h"
 #include "movieRelated.h"
 #include "studioRelated.h"
+#include "brokenSeatHistory.h"
 
 struct user* userStart;
 int today;
@@ -11,6 +12,7 @@ struct movie* movieStart;
 struct studio* studioStart;
 long long int movieIDCounter;
 long long int studioIDCounter;
+struct brokenSeatHistory* brokenSeatHistoryStart;
 
 void loadData()
 {
@@ -141,6 +143,30 @@ void loadData()
 	}
 	printf("Done!\n");
 	//printf("test: %s\n", userStart->username);
+
+	// Read brokenSeatHistory
+	brokenSeatHistoryStart = NULL;
+	printf("Reading broken seats' history...");
+	FILE* brokenSeatHistoryFile;
+	err = fopen_s(&brokenSeatHistoryFile, "brokenSeatHistory.dat", "rb+");
+	if (brokenSeatHistoryFile == NULL)  // If the file doesn't exist.
+	{
+		brokenSeatHistoryStart = NULL;
+	}
+	else
+	{
+		brokenSeatHistoryStart = NULL;
+		struct brokenSeatHistory* brokenSeatHistorySwap = (struct brokenSeatHistory*) malloc(sizeof(struct brokenSeatHistory));
+		fread(brokenSeatHistorySwap, sizeof(struct brokenSeatHistory), 1, brokenSeatHistoryFile);
+		while (feof(brokenSeatHistoryFile) == 0)
+		{
+			brokenSeatHistoryStart = addBrokenSeatHistory(brokenSeatHistoryStart, brokenSeatHistorySwap->studioID, brokenSeatHistorySwap->whichLine, brokenSeatHistorySwap->whichColumn, brokenSeatHistorySwap->startDay, brokenSeatHistorySwap->endDay);
+			fread(brokenSeatHistorySwap, sizeof(struct brokenSeatHistory), 1, brokenSeatHistoryFile);
+		}
+		fclose(brokenSeatHistoryFile);
+		free(brokenSeatHistorySwap);
+	}
+	printf("Done!\n");
 }
 
 void saveData()
@@ -232,5 +258,18 @@ void saveData()
 		userSwap = userSwap->next;
 	}
 	fclose(userFile);
+	printf("Done!\n");
+
+	// Save brokenSeatHistory
+	printf("Saving broken seats' history...");
+	FILE* brokenSeatHistoryFile;
+	err = fopen_s(&brokenSeatHistoryFile, "brokenSeatHistory.dat", "wb+");
+	struct brokenSeatHistory* brokenSeatHistorySwap = brokenSeatHistoryStart;
+	while (brokenSeatHistorySwap != NULL)
+	{
+		fwrite(brokenSeatHistorySwap, sizeof(struct brokenSeatHistory), 1, brokenSeatHistoryFile);
+		brokenSeatHistorySwap = brokenSeatHistorySwap->next;
+	}
+	fclose(brokenSeatHistoryFile);
 	printf("Done!\n");
 }

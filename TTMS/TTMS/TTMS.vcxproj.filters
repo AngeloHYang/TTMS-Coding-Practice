@@ -51,6 +51,12 @@
     <ClCompile Include="studioRelated.c">
       <Filter>源文件\basic</Filter>
     </ClCompile>
+    <ClCompile Include="brokenSeatRelated.c">
+      <Filter>源文件\basic</Filter>
+    </ClCompile>
+    <ClCompile Include="manager.c">
+      <Filter>源文件\view</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="usedVariableTypes.h">
@@ -66,6 +72,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="studioRelated.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="brokenSeatHistory.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

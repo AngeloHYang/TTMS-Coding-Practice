@@ -55,7 +55,7 @@ struct movie* movieCheckByWhichOne(struct movie* movieStart, long long int which
 {
 	long long int counter = 1;
 	struct movie* operate = movieStart;
-	while (counter != whichOne)
+	while (counter < whichOne)
 	{
 		counter++;
 		operate = operate->next;

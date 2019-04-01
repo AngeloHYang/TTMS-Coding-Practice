@@ -55,7 +55,7 @@ struct studio* studioCheckByWhichOne(struct studio* studioStart, long long int w
 	long long int counter = 1;
 	struct studio* operate = studioStart;
 	
-	while (counter != whichOne)
+	while (counter < whichOne)
 	{
 		counter++;
 		operate = operate->next;
@@ -109,4 +109,17 @@ int studioCheckByIDAndReturnWhichOne(struct studio* studioStart, long long int i
 		}
 	}
 	return -1;
+}
+
+int seatExist(struct studio* studioStart, long long int inputID, int whichLine, int whichColumn)
+{
+	struct studio* studioSwap = studioCheckByWhichOne(studioStart, studioCheckByIDAndReturnWhichOne(studioStart, inputID));
+	if (whichColumn <= studioSwap->columns && whichColumn >= 1 && whichLine <= studioSwap->lines && whichColumn >= 0)
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
 }

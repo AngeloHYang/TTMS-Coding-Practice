@@ -1,3 +1,5 @@
+// Wht happens when a seat is fixed ahead of time?
+// What happens when there are tickets and you are trying to delete a studio
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -6,6 +8,7 @@
 #include "stringRelated.h"
 #include "studioRelated.h"
 #include "movieRelated.h"
+#include "brokenSeatHistory.h"
 
 //  Below are changing password related
 void changePassword(int whichUser)
@@ -117,11 +120,20 @@ void viewAll()
 				printf("%s\n", movieSwap->name);
 			}
 			printf("Seats:\n");
+			// Are you forgetting something?
 			for (int whichLine = 1; whichLine <= studioSwap->lines; whichLine++)
 			{
 				for (int whichColumn = 1; whichColumn <= studioSwap->columns; whichColumn++)
 				{
-					printf("¡õ");
+					if (seatIsBrokenToday(brokenSeatHistoryStart, today, studioSwap->ID, whichLine, whichColumn) == 1)
+					{
+						printf("¢ú");
+					}
+					// consider use ¨€
+					else
+					{
+						printf("¡õ");
+					}
 				}
 				printf("\n");
 			}
@@ -150,37 +162,47 @@ void addStudioMenu()
 	int columns;
 	scanf_s("%d", &columns);
 	getchar();
-	
-	studioIDCounter++;
-	printf("\n\nIs this allright?(y/n)\n");
-	printf("Studio ID: %lld\n", studioIDCounter);
-	printf("Seats:\n");
-	for (int whichLine = 1; whichLine <= lines; whichLine++)
+
+	if (lines > 0 && columns > 0)
 	{
-		for (int whichColumn = 1; whichColumn <= columns; whichColumn++)
+		studioIDCounter++;
+		printf("\n\nIs this allright?(y/n)\n");
+		printf("Studio ID: %lld\n", studioIDCounter);
+		printf("Seats:\n");
+		for (int whichLine = 1; whichLine <= lines; whichLine++)
 		{
-			printf("¡õ");
+			for (int whichColumn = 1; whichColumn <= columns; whichColumn++)
+			{
+				printf("¡õ");
+			}
+			printf("\n");
 		}
 		printf("\n");
-	}
-	printf("\n");
-	printf("Your input: ");
-	char inputSpace[1000];
-	memset(inputSpace, '\0', sizeof(inputSpace));
-	gets_s(inputSpace, 1000);
-	deleteSpaceInTheEnd(inputSpace, 1000);
-	if (strcmp(inputSpace, "y") == 0)
-	{
-		studioStart = addStudio(studioStart, studioIDCounter, lines, columns, -1);
-		printf("\nAdded successfully!\n");
-		system("pause");
+		printf("Your input: ");
+		char inputSpace[1000];
+		memset(inputSpace, '\0', sizeof(inputSpace));
+		gets_s(inputSpace, 1000);
+		deleteSpaceInTheEnd(inputSpace, 1000);
+		if (strcmp(inputSpace, "y") == 0)
+		{
+			studioStart = addStudio(studioStart, studioIDCounter, lines, columns, -1);
+			printf("\nAdded successfully!\n");
+			system("pause");
+		}
+		else
+		{
+			printf("\nFail to add the studio!\n");
+			system("pause");
+		}
 	}
 	else
 	{
-		printf("\nFail to add the studio!\n");
+		printf("\nStop what you are trying to do!\nWe are going back!\n");
 		system("pause");
 	}
 }
+	
+	
 
 void deleteStudioMenu()
 // Danger
@@ -214,7 +236,7 @@ void deleteStudioMenu()
 			struct studio* studioSwap;
 			studioSwap = studioCheckByWhichOne(studioStart, studioWhichOne);
 			printf("\n\nAre you sure to delete this studio?(y/n)\n");
-			printf("Studio ID: %lld\n", studioIDCounter);
+			printf("Studio ID: %lld\n", studioSwap->ID);
 			printf("Movie Playing: ");
 			struct movie* movieSwap = movieCheckByID(studioSwap->moviePlayingID);
 			if (movieSwap == NULL)
@@ -226,11 +248,19 @@ void deleteStudioMenu()
 				printf("%s\n", movieSwap->name);
 			}
 			printf("Seats:\n");
+			// Are you forgetting something?
 			for (int whichLine = 1; whichLine <= studioSwap->lines; whichLine++)
 			{
 				for (int whichColumn = 1; whichColumn <= studioSwap->columns; whichColumn++)
 				{
-					printf("¡õ");
+					if (seatIsBrokenToday(brokenSeatHistoryStart, today, studioSwap->ID, whichLine, whichColumn) == 1)
+					{
+						printf("¢ú");
+					}
+					else
+					{
+						printf("¡õ");
+					}
 				}
 				printf("\n");
 			}
@@ -261,6 +291,137 @@ void deleteStudioMenu()
 	}
 }
 
+// Below are broken seats related
+void ReportABrokenSeatMenu()
+{
+	system("cls");
+	printf("Today: %d\n", today);
+	printf("We are going to report a broken seat!\n\n\n");
+	printf("Do you wanna go back and check out the ID of the studio?(y/n)\n");
+	printf("Your input: ");
+	char userInput[1000];
+	memset(userInput, '\0', sizeof(userInput));
+	gets_s(userInput, 1000);
+	deleteSpaceInTheEnd(userInput, 1000);
+	if (strcmp(userInput, "n") == 0)
+		// If the user knows the ID
+	{
+		printf("Please input the ID of the studio which has a broken seat to report: ");
+		long long int inputID;
+		scanf_s("%lld", &inputID);
+		long long int targetStudioWhichOne = studioCheckByIDAndReturnWhichOne(studioStart, inputID);
+		if (targetStudioWhichOne != -1)
+		{
+			struct studio* studioSwap = studioCheckByWhichOne(studioStart, targetStudioWhichOne);
+			printf("\n\nThe studio:\n");
+			printf("Movie playing: ");
+			if (studioSwap->moviePlayingID == -1)
+			{
+				printf("No movies playing!\n");
+			}
+			else
+			{
+				struct movie* movieSwap = movieCheckByID(studioSwap->moviePlayingID);
+				printf("%s\n", movieSwap->name);
+			}
+			printf("Seats:\n");
+			for (int whichLine = 1; whichLine <= studioSwap->lines; whichLine++)
+			{
+				for (int whichColumn = 1; whichColumn <= studioSwap->columns; whichColumn++)
+				{
+					if (seatIsBrokenToday(brokenSeatHistoryStart, today, studioSwap->ID, whichLine, whichColumn) == 1)
+					{
+						printf("¢ú");
+					}
+					else
+					{
+						printf("¡õ");
+					}
+				}
+				printf("\n");
+			}
+			printf("\n");
+			printf("Which seat do you want to report?\n");
+			int inputLine, inputColumn;
+			printf("- Line: ");
+			scanf_s("%d", &inputLine);
+			printf("\n- Column: ");
+			scanf_s("%d", &inputColumn);
+			long long int startDay, endDay;
+			printf("\nBroken day(No earlier than today): ");
+			scanf_s("%lld", &startDay);
+			printf("\nLast day being broken: ");
+			scanf_s("%lld", &endDay);
+			if (startDay >= today && seatExist(studioStart, studioSwap->ID, inputLine, inputColumn) == 1 && seatIsBrokenInRange(brokenSeatHistoryStart, startDay, endDay, studioSwap->ID, inputLine, inputColumn) == 0 && endDay >= startDay)
+			{
+				printf("\nAre you sure?(y/n)\n");
+				printf("Broken period: %lld-%lld", startDay, endDay);
+				printf("\nSeats:\n");
+				for (int whichLine = 1; whichLine <= studioSwap->lines; whichLine++)
+				{
+					for (int whichColumn = 1; whichColumn <= studioSwap->columns; whichColumn++)
+					{
+						if (whichLine == inputLine && whichColumn == inputColumn)
+						{
+							printf("¡î");
+						}
+						else if (seatIsBrokenToday(brokenSeatHistoryStart, today, studioSwap->ID, whichLine, whichColumn) == 1)
+						{
+							printf("¢ú");
+						}
+						else
+						{
+							printf("¡õ");
+						}
+					}
+					printf("\n");
+				}
+
+				getchar();
+				char inputSpace[1000];
+				memset(inputSpace, '\0', sizeof(inputSpace));
+				gets_s(inputSpace, 1000);
+				deleteSpaceInTheEnd(inputSpace, 1000);
+				if (strcmp(inputSpace, "y") == 0)
+				{
+					brokenSeatHistoryStart = addBrokenSeatHistory(brokenSeatHistoryStart, studioSwap->ID, inputLine, inputColumn, startDay, endDay);
+					printf("\nReport successfully!\n");
+					system("pause");
+				}
+				else
+				{
+					printf("\nFail to report the broken seat!\n");
+					system("pause");
+				}
+			}
+			else if (seatIsBrokenInRange(brokenSeatHistoryStart, startDay, endDay, studioSwap->ID, inputLine, inputColumn) == 1 && endDay >= startDay)
+			{
+				printf("The broken seat has been reported before!\nPlease come to report when a seat hasn't been reported.\n");
+				system("pause");
+			}
+			else
+			{
+				printf("\n***Invalid input!\n");
+				printf("We are going back!\n");
+				system("pause");
+			}
+		}
+		else
+		{
+			printf("\nInvalid studio ID!\n");
+			printf("We are going back!\n");
+			system("pause");
+		}
+	}
+	else
+	{
+		printf("We are going back!\n");
+		system("pause");
+	}
+
+	
+}
+
 void manageStudioMenu()
 {
 	char userInput[1000];
@@ -273,7 +434,7 @@ void manageStudioMenu()
 		printf("1) View all\n");
 		printf("2) Add a studio\n");
 		printf("3) Delete a studio\n");
-		printf("4) Report a broken seat\n");
+		//printf("4) Report a broken seat\n");
 
 
 		printf("\n\nInput exit to quit\n\nYour input: ");
@@ -295,7 +456,7 @@ void manageStudioMenu()
 		}
 		else if (strcmp(userInput, "4") == 0)
 		{
-
+			//ReportABrokenSeatMenu();
 		}
 	}
 }

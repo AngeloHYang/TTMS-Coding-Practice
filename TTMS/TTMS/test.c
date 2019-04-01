@@ -6,6 +6,8 @@
 #include "usedVariableTypes.h"
 #include "movieRelated.h"
 #include "studioRelated.h"
+#include "brokenSeatHistory.h"
+
 void test()
 {
 	/*
@@ -50,6 +52,20 @@ void test()
 	}*/
 	//printf("counter: %lld\n", studioIDCounter);
 	//studioIDCounter++;
+	
+	/*
+	printf("Seat History: %d\n", howManyBrokenSeatHistory(brokenSeatHistoryStart));
+	brokenSeatHistoryStart = addBrokenSeatHistory(brokenSeatHistoryStart, 1, 1, 2, 1, 6);
+	brokenSeatHistoryStart = addBrokenSeatHistory(brokenSeatHistoryStart, 1, 3, 4, 1, 6);
+	struct brokenSeatHistory* brokenSeatHistorySwap;
+	for (int whichOne = 1; whichOne <= howManyBrokenSeatHistory(brokenSeatHistoryStart); whichOne++)
+	{
+		brokenSeatHistorySwap = brokenSeatHistoryCheckByWhichOne(brokenSeatHistoryStart, whichOne);
+		printf("%d\n", brokenSeatHistorySwap->whichLine);
+	}
+	printf("Seat History: %d\n", howManyBrokenSeatHistory(brokenSeatHistoryStart));*/
+
+
 
 	printf("The test is over!\n");
 	system("pause");

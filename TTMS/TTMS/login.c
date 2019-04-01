@@ -115,7 +115,11 @@ void welcome()
 		}
 		else if (strcmp(userInput, "2") == 0)
 		{
-
+			if (loginWithPassword(userStart, 2) == 1)
+			{
+				extern void managerView();
+				managerView();
+			}
 		}
 		else if (strcmp(userInput, "3") == 0)
 		{

@@ -7,3 +7,5 @@ extern struct studio* studioCheckByWhichOne(struct studio* studioStart, long lon
 extern struct studio* deleteStudioByWhichOne(struct studio* studioStart, long long int whichOne);
 
 extern int studioCheckByIDAndReturnWhichOne(struct studio* studioStart, long long int inputID);
+
+extern int seatExist(struct studio* studioStart, long long int inputID, int whichLine, int whichColumn);

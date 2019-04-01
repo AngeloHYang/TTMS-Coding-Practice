@@ -31,7 +31,6 @@ struct ticketHistory
 
 struct brokenSeatHistory
 {
-	long long int brokenSeatID;
 	long long int studioID;
 	int whichLine;
 	int whichColumn;
@@ -66,3 +65,5 @@ extern long long int movieIDCounter;
 extern long long int studioIDCounter;
 
 extern struct studio* studioStart;
+
+extern struct brokenSeatHistory* brokenSeatHistoryStart;
