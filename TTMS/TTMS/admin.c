@@ -165,9 +165,8 @@ void addStudioMenu()
 
 	if (lines > 0 && columns > 0)
 	{
-		studioIDCounter++;
 		printf("\n\nIs this allright?(y/n)\n");
-		printf("Studio ID: %lld\n", studioIDCounter);
+		printf("Studio ID: %lld\n", studioIDCounter + 1);
 		printf("Seats:\n");
 		for (int whichLine = 1; whichLine <= lines; whichLine++)
 		{
@@ -185,6 +184,7 @@ void addStudioMenu()
 		deleteSpaceInTheEnd(inputSpace, 1000);
 		if (strcmp(inputSpace, "y") == 0)
 		{
+			studioIDCounter++;
 			studioStart = addStudio(studioStart, studioIDCounter, lines, columns, -1);
 			printf("\nAdded successfully!\n");
 			system("pause");
@@ -434,8 +434,7 @@ void manageStudioMenu()
 		printf("1) View all\n");
 		printf("2) Add a studio\n");
 		printf("3) Delete a studio\n");
-		//printf("4) Report a broken seat\n");
-
+		printf("4) Report a broken seat\n");
 
 		printf("\n\nInput exit to quit\n\nYour input: ");
 		gets_s(userInput, 1000);
@@ -456,7 +455,7 @@ void manageStudioMenu()
 		}
 		else if (strcmp(userInput, "4") == 0)
 		{
-			//ReportABrokenSeatMenu();
+			ReportABrokenSeatMenu();
 		}
 	}
 }

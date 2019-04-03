@@ -7,3 +7,7 @@ extern struct movie* movieCheckByWhichOne(struct movie* movieStart, long long in
 extern struct movie* deleteMovieByWhichOne(struct movie* movieStart, long long int whichOne);
 
 extern struct movie* movieCheckByID(long long int inputID);
+
+extern int movieWhichOneIfAvailableToday(int today, long long int whichOne, struct movie* movieStart);
+
+extern int movieExistByName(char inputName[1000], struct movie* movieStart);

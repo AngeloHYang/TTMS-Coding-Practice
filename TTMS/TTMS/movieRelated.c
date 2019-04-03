@@ -118,3 +118,31 @@ struct movie* movieCheckByID(long long int inputID)
 		return NULL;
 	}
 }
+
+int movieWhichOneIfAvailableToday(int today, long long int whichOne, struct movie* movieStart)
+// If available, return 1; else return 0
+{
+	struct movie* movieSwap = movieCheckByWhichOne(movieStart, whichOne);
+	if (today >= movieSwap->startDay && today <= movieSwap->endDay)
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+}
+
+int movieExistByName(char inputName[1000], struct movie* movieStart)
+{
+	for (int whichOne = 1; whichOne <= howManyMovies(movieStart); whichOne++)
+	{
+		struct movie* movieSwap;
+		movieSwap = movieCheckByWhichOne(movieStart, whichOne);
+		if (strcmp(movieSwap->name, inputName) == 0)
+		{
+			return 1;
+		}
+	}
+	return 0;
+}
