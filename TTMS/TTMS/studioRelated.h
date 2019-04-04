@@ -9,3 +9,7 @@ extern struct studio* deleteStudioByWhichOne(struct studio* studioStart, long lo
 extern int studioCheckByIDAndReturnWhichOne(struct studio* studioStart, long long int inputID);
 
 extern int seatExist(struct studio* studioStart, long long int inputID, int whichLine, int whichColumn);
+
+extern void printStudioByWhichOne(struct studio* studioStart, long long int whichStudio);
+
+extern int movieIDExistInStudioWhichOne(struct studio* studioStart, long long int movieID, long long int whichOne);

@@ -27,17 +27,11 @@ void checkMovieMenu()
 		{
 			system("cls");
 			printf("Here are %d movies in the database!\n", howManyMovies(movieStart));
-			struct movie* movieSwap;
+			//struct movie* movieSwap;
 			for (long long int whichOne = 1; whichOne <= howManyMovies(movieStart); whichOne++)
 			{
-				movieSwap = movieCheckByWhichOne(movieStart, whichOne);
 				printf("%lld:\n", whichOne);
-				printf("Name: %s", movieSwap->name);
-				printf("Price: %d\n", movieSwap->price);
-				printf("ID: %lld\n", movieSwap->ID);
-				printf("Begin day: %lld\n", movieSwap->startDay);
-				printf("End day: %lld\n", movieSwap->endDay);
-				printf("\n");
+				printMovieByWhichOne(movieStart, whichOne);
 			}
 			system("pause");
 		}
@@ -67,13 +61,8 @@ void checkMovieMenu()
 					movieSwap = movieCheckByWhichOne(movieStart, whichOne);
 					if (movieWhichOneIfAvailableToday(today, whichOne, movieStart) == 1)
 					{
-						printf("%lld:\n", counter + 1);
-						printf("Name: %s", movieSwap->name);
-						printf("Price: %d\n", movieSwap->price);
-						printf("ID: %lld\n", movieSwap->ID);
-						printf("Begin day: %lld\n", movieSwap->startDay);
-						printf("End day: %lld\n", movieSwap->endDay);
-						printf("\n");
+						printf("%lld:\n", whichOne);
+						printMovieByWhichOne(movieStart, whichOne);
 						counter++;
 					}
 				}
@@ -111,7 +100,7 @@ void addMovieMenu()
 		long long int inputBeginDay;
 		scanf_s("%lld", &inputBeginDay);
 
-		printf("- Last Day Playing: ");
+		printf("- Last Playing Day: ");
 		long long int inputEndDay;
 		scanf_s("%lld", &inputEndDay);
 
@@ -184,6 +173,107 @@ void addMovieMenu()
 	}
 }
 
+void deleteMovieMenu()
+{
+	system("cls");
+	printf("Today is %d\n", today);
+	printf("To delete a movie, you need to know the ID of it first!\n");
+	printf("WARNING: If a movie is deleted, it'll never be able to be added once again!\n");
+	printf("Are you ready to delete a movie?(y/n)\n\n");
+	char userInput[1000];
+	printf("Your choice:  ");
+	memset(userInput, '\0', sizeof(userInput));
+	gets_s(userInput, 1000);
+	deleteSpaceInTheEnd(userInput, 1000);
+	if (strcmp(userInput, "y") == 0)
+	{
+		printf("\nLet's do it!\n");
+		printf("Please input the ID of the movie: ");
+		long long int inputID;
+		scanf_s("%lld", &inputID);
+		getchar();
+		struct movie* movieSwap = movieCheckByID(inputID);
+
+		// Check if the ID exist
+		if (movieSwap == NULL)
+		{
+			printf("The movie ID that you input doesn't seem to exist!\n");
+			system("pause");
+		}
+		else
+		{
+			printMovieByWhichOne(movieSwap, 1); // Consider the current one as the first one for convenience.
+
+			// Check if the movie is playing.
+			int playingFlag = 0;
+			for (int whichOne = 1; whichOne <= howManyStudios(studioStart); whichOne++)
+			{
+				if (movieIDExistInStudioWhichOne(studioStart, inputID, whichOne) == 1)
+				{
+					playingFlag = 1;
+					break;
+				}
+			}
+			if (playingFlag == 1)
+			{
+				printf("The movie is playing at: \n");
+				for (int whichOne = 1; whichOne <= howManyStudios(studioStart); whichOne++)
+				{
+					if (movieIDExistInStudioWhichOne(studioStart, inputID, whichOne) == 1)
+					{
+						printStudioByWhichOne(studioStart, whichOne);
+					}
+				}
+				printf("\nTo delete the movie, every sold out ticket will be forcely returned and marked as the cinema's bad.\n");
+			}
+			printf("Do you wish to delete the movie? (y/n)\n");
+			printf("\nYour choice: ");
+			memset(userInput, '\0', sizeof(userInput));
+			gets_s(userInput, 1000);
+			deleteSpaceInTheEnd(userInput, 1000);
+			struct studio* studioSwap;
+			if (strcmp(userInput, "y") == 0)
+			{
+				printf("We are going to delete the movie...");
+
+				// Come back here and add what to do to tickets
+				if (playingFlag == 1)
+				{
+					;
+				}
+
+				// Clear studio
+				if (playingFlag == 1)
+				{
+					for (int whichOne = 1; whichOne <= howManyStudios(studioStart); whichOne++)
+					{
+						if (movieIDExistInStudioWhichOne(studioStart, inputID, whichOne) == 1)
+						{
+							studioSwap = studioCheckByWhichOne(studioStart, whichOne);
+							studioSwap->moviePlayingID = -1;
+						}
+					}
+				}
+
+				// Delete movie from movie database;
+
+				movieStart = deleteMovieByWhichOne(movieStart, movieIDToWhichOne(inputID, movieStart));
+				printf("done!\n");
+				system("pause");
+			}
+			else
+			{
+				printf("Movie not deleted!\n");
+				system("pause");
+			}
+		}
+	} else
+	{
+		printf("We are going back!\n");
+		system("pause");
+	}
+}
+
 void manageMovieMenu()
 {
 	char userInput[1000];
@@ -210,7 +300,154 @@ void manageMovieMenu()
 		}
 		else if (strcmp(userInput, "3") == 0)
 		{
-			//deleteMovieMenu();
+			deleteMovieMenu();
+		}
+	}
+}
+
+void checkStudios()
+{
+	char userInput[1000];
+	memset(userInput, '\0', sizeof(userInput));
+	while (strcmp(userInput, "exit") != 0)
+	{
+		system("cls");
+		printf("Today: %d\n", today);
+		printf("How would you like to check studios?\n");
+		printf("1) Check all studios\n");
+		printf("2) Check empty studios\n");
+		printf("3) Check busy studios\n");
+		printf("\n\nInput exit to quit\n\nYour input: ");
+		memset(userInput, '\0', sizeof(userInput));
+		gets_s(userInput, 1000);
+		deleteSpaceInTheEnd(userInput, 1000);
+		
+		if (strcmp(userInput, "1") == 0)
+		{
+			system("cls");
+			printf("Today: %d\n", today);
+			printf("There are %d studios in all:\n", howManyStudios(studioStart));
+
+			for (long long int whichStudio = 1; whichStudio <= howManyStudios(studioStart); whichStudio++)
+			{
+				printStudioByWhichOne(studioStart, whichStudio);
+			}
+			printf("\n\n");
+			system("pause");
+		}
+		else if (strcmp(userInput, "2") == 0)
+		{
+			system("cls");
+			printf("Today: %d\n", today);
+
+			// Check how many empty studios are there
+			long long int counter = 0;
+			struct studio* studioSwap;
+			for (long long int whichStudio = 1; whichStudio <= howManyStudios(studioStart); whichStudio++)
+			{
+				studioSwap = studioCheckByWhichOne(studioStart, whichStudio);
+				if (studioSwap->moviePlayingID == -1)
+				{
+					counter++;
+				}
+			}
+
+			printf("There are %d empty studios:\n", counter);
+			for (long long int whichStudio = 1; whichStudio <= howManyStudios(studioStart); whichStudio++)
+			{
+				studioSwap = studioCheckByWhichOne(studioStart, whichStudio);
+				if (studioSwap->moviePlayingID == -1)
+				{
+					printStudioByWhichOne(studioStart, whichStudio);
+				}
+			}
+			printf("\n\n");
+			system("pause");
+		}
+		else if (strcmp(userInput, "3") == 0)
+		{
+			system("cls");
+			printf("Today: %d\n", today);
+
+			// Check how many busy studios are there
+			long long int counter = 0;
+			struct studio* studioSwap;
+			for (long long int whichStudio = 1; whichStudio <= howManyStudios(studioStart); whichStudio++)
+			{
+				studioSwap = studioCheckByWhichOne(studioStart, whichStudio);
+				if (studioSwap->moviePlayingID != -1)
+				{
+					counter++;
+				}
+			}
+
+			printf("There are %d busy studios:\n", counter);
+			for (long long int whichStudio = 1; whichStudio <= howManyStudios(studioStart); whichStudio++)
+			{
+				studioSwap = studioCheckByWhichOne(studioStart, whichStudio);
+				if (studioSwap->moviePlayingID != -1)
+				{
+					printStudioByWhichOne(studioStart, whichStudio);
+				}
+			}
+			printf("\n\n");
+			system("pause");
+		}
+	}
+}
+
+void linkMovieMenu()
+{
+	system("cls");
+	printf("Today is %d\n", today);
+	printf("Let's pick a movie and make a studio play it!\n");
+	printf("You need to remember the ID of the movie and the ID of the studio.\n");
+	printf("Yes, it ain't easy to be a manager!\n");
+	printf("Do you want to go back and check them out? (y/n)\n");
+	printf("\nYour choice: ");
+	char userInput[1000];
+	memset(userInput, '\0', sizeof(userInput));
+	gets_s(userInput, 1000);
+	deleteSpaceInTheEnd(userInput, 1000);
+	if (strcmp(userInput, "n") == 0)
+	{
+		printf("\nAlright then.\n");
+		system("pause");
+	}
+	else
+	{
+		printf("\nWe are going back!\n");
+		system("pause");
+	}
+}
+
+void managePlayMenu()
+{
+	char userInput[1000];
+	memset(userInput, '\0', sizeof(userInput));
+	while (strcmp(userInput, "exit") != 0)
+	{
+		system("cls");
+		printf("Today is %d\n", today);
+		printf("How would you like to put play movies?\n\n");
+		printf("1) Check studios\n");
+		printf("2) Make a movie playing at a studio\n");
+		printf("3) Stop playing a movie at a studio\n");
+
+		printf("\n\nInput exit to quit\n\nYour input: ");
+		gets_s(userInput, 1000);
+		deleteSpaceInTheEnd(userInput, 1000);
+		if (strcmp(userInput, "1") == 0)
+		{
+			checkStudios();
+		}
+		else if (strcmp(userInput, "2") == 0)
+		{
+			linkMovieMenu();
+		}
+		else if (strcmp(userInput, "3") == 0)
+		{
+			
 		}
 	}
 }
@@ -240,7 +477,7 @@ void managerView()
 		}
 		else if (strcmp(userInput, "2") == 0)
 		{
-
+			managePlayMenu();
 		}
 		else if (strcmp(userInput, "3") == 0)
 		{

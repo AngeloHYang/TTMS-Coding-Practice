@@ -3,6 +3,8 @@
 #include <string.h>
 #include "usedVariableTypes.h"
 #include "stringRelated.h"
+#include "movieRelated.h"
+#include "brokenSeatHistory.h"
 
 int howManyStudios(struct studio* studioStart)
 {
@@ -115,6 +117,58 @@ int seatExist(struct studio* studioStart, long long int inputID, int whichLine, 
 {
 	struct studio* studioSwap = studioCheckByWhichOne(studioStart, studioCheckByIDAndReturnWhichOne(studioStart, inputID));
 	if (whichColumn <= studioSwap->columns && whichColumn >= 1 && whichLine <= studioSwap->lines && whichColumn >= 0)
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+}
+
+void printStudioByWhichOne(struct studio* studioStart, long long int whichStudio)
+{
+	struct studio* studioSwap;
+	struct movie* movieSwap;
+	studioSwap = studioCheckByWhichOne(studioStart, whichStudio);
+	printf("Studio NO.%lld\n", whichStudio);
+	printf("Studio ID: %lld\n", studioSwap->ID);
+	printf("Movie playing: ");
+	movieSwap = movieCheckByID(studioSwap->moviePlayingID);
+	if (movieSwap == NULL)
+	{
+		printf("No movie playing now\n");
+	}
+	else
+	{
+		printf("%s\n", movieSwap->name);
+	}
+	printf("Seats:\n");
+
+	// Are you forgetting something?
+	for (int whichLine = 1; whichLine <= studioSwap->lines; whichLine++)
+	{
+		for (int whichColumn = 1; whichColumn <= studioSwap->columns; whichColumn++)
+		{
+			if (seatIsBrokenToday(brokenSeatHistoryStart, today, studioSwap->ID, whichLine, whichColumn) == 1)
+			{
+				printf("¢ú");
+			}
+			// consider use ¨€
+			else
+			{
+				printf("¡õ");
+			}
+		}
+		printf("\n");
+	}
+	printf("\n\n");
+}
+
+int movieIDExistInStudioWhichOne(struct studio* studioStart, long long int movieID, long long int whichOne)
+{
+	struct studio* studioSwap = studioCheckByWhichOne(studioStart, whichOne);
+	if (studioSwap->moviePlayingID == movieID)
 	{
 		return 1;
 	}

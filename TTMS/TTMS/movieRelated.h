@@ -11,3 +11,7 @@ extern struct movie* movieCheckByID(long long int inputID);
 extern int movieWhichOneIfAvailableToday(int today, long long int whichOne, struct movie* movieStart);
 
 extern int movieExistByName(char inputName[1000], struct movie* movieStart);
+
+extern void printMovieByWhichOne(struct movie* movieStart, long long int whichOne);
+
+extern long long int movieIDToWhichOne(long long int movieID, struct movie* movieStart);

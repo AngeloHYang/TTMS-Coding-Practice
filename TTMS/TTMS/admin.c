@@ -94,8 +94,8 @@ void viewAll()
 {
 	char userInput[1000];
 
-	struct studio* studioSwap;
-	struct movie* movieSwap;
+	//struct studio* studioSwap;
+	//struct movie* movieSwap;
 
 	while (strcmp(userInput, "exit") != 0)
 	{
@@ -106,40 +106,8 @@ void viewAll()
 		
 		for (long long int whichStudio = 1; whichStudio <= howManyStudios(studioStart); whichStudio++)
 		{
-			studioSwap = studioCheckByWhichOne(studioStart, whichStudio);
-			printf("Studio NO.%lld\n", whichStudio);
-			printf("Studio ID: %lld\n", studioSwap->ID);
-			printf("Movie playing: ");
-			movieSwap = movieCheckByID(studioSwap->moviePlayingID);
-			if (movieSwap == NULL)
-			{
-				printf("No movie playing now\n");
-			}
-			else
-			{
-				printf("%s\n", movieSwap->name);
-			}
-			printf("Seats:\n");
-			// Are you forgetting something?
-			for (int whichLine = 1; whichLine <= studioSwap->lines; whichLine++)
-			{
-				for (int whichColumn = 1; whichColumn <= studioSwap->columns; whichColumn++)
-				{
-					if (seatIsBrokenToday(brokenSeatHistoryStart, today, studioSwap->ID, whichLine, whichColumn) == 1)
-					{
-						printf("¢ú");
-					}
-					// consider use ¨€
-					else
-					{
-						printf("¡õ");
-					}
-				}
-				printf("\n");
-			}
-			printf("\n\n");
+			printStudioByWhichOne(studioStart, whichStudio);
 		}
-
 
 		printf("\n\nInput exit to quit\n\nYour input: ");
 		gets_s(userInput, 1000);
@@ -233,37 +201,10 @@ void deleteStudioMenu()
 		}
 		else
 		{
-			struct studio* studioSwap;
-			studioSwap = studioCheckByWhichOne(studioStart, studioWhichOne);
+			//struct studio* studioSwap;
+			//studioSwap = studioCheckByWhichOne(studioStart, studioWhichOne);
 			printf("\n\nAre you sure to delete this studio?(y/n)\n");
-			printf("Studio ID: %lld\n", studioSwap->ID);
-			printf("Movie Playing: ");
-			struct movie* movieSwap = movieCheckByID(studioSwap->moviePlayingID);
-			if (movieSwap == NULL)
-			{
-				printf("No movie playing now\n");
-			}
-			else
-			{
-				printf("%s\n", movieSwap->name);
-			}
-			printf("Seats:\n");
-			// Are you forgetting something?
-			for (int whichLine = 1; whichLine <= studioSwap->lines; whichLine++)
-			{
-				for (int whichColumn = 1; whichColumn <= studioSwap->columns; whichColumn++)
-				{
-					if (seatIsBrokenToday(brokenSeatHistoryStart, today, studioSwap->ID, whichLine, whichColumn) == 1)
-					{
-						printf("¢ú");
-					}
-					else
-					{
-						printf("¡õ");
-					}
-				}
-				printf("\n");
-			}
+			printStudioByWhichOne(studioStart, studioWhichOne);
 			printf("\n");
 			printf("Your input: ");
 			char inputSpace[1000];
@@ -312,34 +253,7 @@ void ReportABrokenSeatMenu()
 		long long int targetStudioWhichOne = studioCheckByIDAndReturnWhichOne(studioStart, inputID);
 		if (targetStudioWhichOne != -1)
 		{
-			struct studio* studioSwap = studioCheckByWhichOne(studioStart, targetStudioWhichOne);
-			printf("\n\nThe studio:\n");
-			printf("Movie playing: ");
-			if (studioSwap->moviePlayingID == -1)
-			{
-				printf("No movies playing!\n");
-			}
-			else
-			{
-				struct movie* movieSwap = movieCheckByID(studioSwap->moviePlayingID);
-				printf("%s\n", movieSwap->name);
-			}
-			printf("Seats:\n");
-			for (int whichLine = 1; whichLine <= studioSwap->lines; whichLine++)
-			{
-				for (int whichColumn = 1; whichColumn <= studioSwap->columns; whichColumn++)
-				{
-					if (seatIsBrokenToday(brokenSeatHistoryStart, today, studioSwap->ID, whichLine, whichColumn) == 1)
-					{
-						printf("¢ú");
-					}
-					else
-					{
-						printf("¡õ");
-					}
-				}
-				printf("\n");
-			}
+			printStudioByWhichOne(studioStart, targetStudioWhichOne);
 			printf("\n");
 			printf("Which seat do you want to report?\n");
 			int inputLine, inputColumn;
@@ -352,6 +266,7 @@ void ReportABrokenSeatMenu()
 			scanf_s("%lld", &startDay);
 			printf("\nLast day being broken: ");
 			scanf_s("%lld", &endDay);
+			struct studio* studioSwap = studioCheckByWhichOne(studioStart, targetStudioWhichOne);
 			if (startDay >= today && seatExist(studioStart, studioSwap->ID, inputLine, inputColumn) == 1 && seatIsBrokenInRange(brokenSeatHistoryStart, startDay, endDay, studioSwap->ID, inputLine, inputColumn) == 0 && endDay >= startDay)
 			{
 				printf("\nAre you sure?(y/n)\n");
@@ -378,6 +293,7 @@ void ReportABrokenSeatMenu()
 				}
 
 				getchar();
+				printf("\nYour choice: ");
 				char inputSpace[1000];
 				memset(inputSpace, '\0', sizeof(inputSpace));
 				gets_s(inputSpace, 1000);

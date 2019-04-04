@@ -146,3 +146,33 @@ int movieExistByName(char inputName[1000], struct movie* movieStart)
 	}
 	return 0;
 }
+
+void printMovieByWhichOne(struct movie* movieStart, long long int whichOne)
+{
+	struct movie* movieSwap;
+
+	movieSwap = movieCheckByWhichOne(movieStart, whichOne);
+	printf("Name: %s\n", movieSwap->name);
+	printf("Price: %d\n", movieSwap->price);
+	printf("ID: %lld\n", movieSwap->ID);
+	printf("Begin day: %lld\n", movieSwap->startDay);
+	printf("End day: %lld\n", movieSwap->endDay);
+	printf("\n");
+}
+
+long long int movieIDToWhichOne(long long int movieID, struct movie* movieStart)
+// If the movie doesn't exist, return -1;
+{
+	long long int counter = 1;
+	struct movie* movieSwap;
+
+	for (long long int whichMovie = 1; whichMovie <= howManyMovies(movieStart); whichMovie++)
+	{
+		movieSwap = movieCheckByWhichOne(movieStart, whichMovie);
+		if (movieSwap->ID == movieID)
+		{
+			return whichMovie;
+		}
+	}
+	return -1;
+}
