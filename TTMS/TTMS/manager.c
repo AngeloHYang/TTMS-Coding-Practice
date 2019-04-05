@@ -352,7 +352,7 @@ void checkStudios()
 				}
 			}
 
-			printf("There are %d empty studios:\n", counter);
+			printf("There are %lld empty studios:\n", counter);
 			for (long long int whichStudio = 1; whichStudio <= howManyStudios(studioStart); whichStudio++)
 			{
 				studioSwap = studioCheckByWhichOne(studioStart, whichStudio);
@@ -381,7 +381,7 @@ void checkStudios()
 				}
 			}
 
-			printf("There are %d busy studios:\n", counter);
+			printf("There are %lld busy studios:\n", counter);
 			for (long long int whichStudio = 1; whichStudio <= howManyStudios(studioStart); whichStudio++)
 			{
 				studioSwap = studioCheckByWhichOne(studioStart, whichStudio);
@@ -411,8 +411,146 @@ void linkMovieMenu()
 	deleteSpaceInTheEnd(userInput, 1000);
 	if (strcmp(userInput, "n") == 0)
 	{
-		printf("\nAlright then.\n");
+		long long int inputStudioID;
+		long long int inputMovieID;
+		printf("\nPlease input the ID of the studio: ");
+		scanf_s("%lld", &inputStudioID);
+		getchar();
+		long long int studioWhichOne = studioCheckByIDAndReturnWhichOne(studioStart, inputStudioID);
+		if (studioWhichOne == -1)
+		{
+			printf("The studio doesn't exist!\n");
+			printf("We are going back!\n\n");
+			system("pause");
+		}
+		else
+		{
+			printStudioByWhichOne(studioStart, studioWhichOne);
+			struct studio* studioSwap = studioCheckByWhichOne(studioStart, studioWhichOne);
+			if (studioSwap->moviePlayingID != -1)
+			{
+				printf("There is a movie playing at the studio!\n");
+				printf("\nWe are going back!\n");
+				system("pause");
+			}
+			else
+			{
+				printf("\nPlease input the ID of the movie: ");
+				scanf_s("%lld", &inputMovieID);
+				getchar();
+				struct movie* movieSwap = movieCheckByID(inputMovieID);
+				if (movieSwap == NULL)
+				{
+					printf("The movie doesn't exist!\n");
+					printf("We are going back!\n\n");
+					system("pause");
+				}
+				else
+				{
+					long long int movieWhichOne = movieIDToWhichOne(inputMovieID, movieStart);
+					if (movieWhichOneIfAvailableToday(today, movieWhichOne, movieStart) == 0)
+					{
+						printMovieByWhichOne(movieStart, movieWhichOne);
+						printf("The movie %s isn't available today!\n", movieSwap->name);
+						system("pause");
+					}
+					else
+					{
+						printMovieByWhichOne(movieStart, movieWhichOne);
+						printf("Do you want to make this movie play at studio %lld?(y/n)\n", inputStudioID);
+						printf("Your decision: ");
+						memset(userInput, '\0', sizeof(userInput));
+						gets_s(userInput, 1000);
+						deleteSpaceInTheEnd(userInput, 1000);
+						if (strcmp(userInput, "y") != 0)
+						{
+							printf("\nWe are going back!\n\n");
+							system("pause");
+						}
+						else
+						{
+							printf("Alright then!\n");
+							
+							studioSwap->moviePlayingID = movieSwap->ID;
+							printf("Movie linked!\n");
+							printStudioByWhichOne(studioStart, studioWhichOne);
+							
+							// Don't forget to finish the ticket part!
+							printf("Wait 'till the ticket part's finised!\n");
+							system("pause");
+						}
+					}
+				}
+			}
+			 
+		}
+	}
+	else
+	{
+		printf("\nWe are going back!\n");
 		system("pause");
+	}
+}
+
+void unlinkMovieMenu()
+{
+	system("cls");
+	printf("Today is %d\n", today);
+	printf("Let's stop playing a movie at a studio!\n");
+	printf("You need to know the ID of the studio.\n");
+	printf("Do you want to go back and check it out? (y/n)\n");
+	printf("\nYour choice: ");
+	char userInput[1000];
+	memset(userInput, '\0', sizeof(userInput));
+	gets_s(userInput, 1000);
+	deleteSpaceInTheEnd(userInput, 1000);
+	if (strcmp(userInput, "n") == 0)
+	{
+		printf("\nPlease input the ID of the studio: ");
+		long long int inputStudioID;
+		scanf_s("%lld", &inputStudioID);
+		getchar();
+		if (studioCheckByIDAndReturnWhichOne(studioStart, inputStudioID) == -1)
+		{
+			printf("The studio doesn't exist!\n");
+			printf("\nWe are going back!\n");
+			system("pause");
+		}
+		else
+		{
+			long long int whichStudio = studioCheckByIDAndReturnWhichOne(studioStart, inputStudioID);
+			struct studio* studioSwap = studioCheckByWhichOne(studioStart, whichStudio);
+			printStudioByWhichOne(studioStart, whichStudio);
+			if (studioSwap->moviePlayingID == -1)
+			{
+				printf("There's no movie playing at this studio!\n");
+				printf("\nWe are going back!\n");
+				system("pause");
+			}
+			else
+			{
+				struct movie* movieSwap = movieCheckByID(studioSwap->moviePlayingID);
+				printf("Do you want to stop playing movie %s in this studio?(y/n)\n", movieSwap->name);
+				printf("Your choice: ");
+				memset(userInput, '\0', sizeof(userInput));
+				gets_s(userInput, 1000);
+				deleteSpaceInTheEnd(userInput, 1000);
+				if (strcmp(userInput, "y") == 0)
+				{
+					studioSwap->moviePlayingID = -1;
+					printStudioByWhichOne(studioStart, whichStudio);
+					// Come back and deal with ticket issue
+					printf("Don't forget to come back and deal with the ticket issue!\n");
+					printf("Movie cancelled!\n");
+					system("pause");
+				}
+				else
+				{
+					printf("\n%s will go on!\n", movieSwap->name);
+					system("pause");
+				}
+			}
+		}
 	}
 	else
 	{
@@ -431,7 +569,7 @@ void managePlayMenu()
 		printf("Today is %d\n", today);
 		printf("How would you like to put play movies?\n\n");
 		printf("1) Check studios\n");
-		printf("2) Make a movie playing at a studio\n");
+		printf("2) Make a movie play at a studio\n");
 		printf("3) Stop playing a movie at a studio\n");
 
 		printf("\n\nInput exit to quit\n\nYour input: ");
@@ -447,15 +585,83 @@ void managePlayMenu()
 		}
 		else if (strcmp(userInput, "3") == 0)
 		{
-			
+			unlinkMovieMenu();
 		}
+	}
+}
+
+void viewDataMenu()
+{
+	system("cls");
+	printf("\033[1m\033[31m¹ã");
+	printf("\033[4m\033[32m¸æ");
+	printf("\033[5m\033[33mÎ»");
+	printf("\033[2m\033[34mÕÐ");
+	printf("\033[7m\033[35m×â");
+	printf("\033[0m\n\n");
+	system("pause");
+}
+
+static void changePasswordMenu()
+{
+	struct user* userSwap;
+	userSwap = userCheckByWhichOne(userStart, 2);
+	char userInput[1000];
+	memset(userInput, '\0', sizeof(userInput));
+	system("cls");
+	printf("Do you want to change your password?(y/n)\n");
+	printf("Your choice: ");
+	gets_s(userInput, 1000);
+	deleteSpaceInTheEnd(userInput, 1000);
+	if (strcmp(userInput, "y") == 0)
+	{
+		printf("Let's do it!(within 20)\n");
+
+		char oldInput[1000];
+		char newInput1[1000];
+		char newInput2[1000];
+		memset(oldInput, '\0', sizeof(oldInput));
+		memset(newInput1, '\0', sizeof(newInput1));
+		memset(newInput2, '\0', sizeof(newInput2));
+
+		printf("\n\nPlease input the old password of user %s: ", userSwap->username);
+		inputPassword(oldInput, 1000);
+		printf("\n\nPlease input the new password of user %s: ", userSwap->username);
+		inputPassword(newInput1, 1000);
+		printf("\n\nPlease input the new password of user %s once again: ", userSwap->username);
+		inputPassword(newInput2, 1000);
+		if (strcmp(oldInput, userSwap->password) != 0)
+		{
+			printf("\n\nWrong old password!\nFail to reset password of user %s!", userSwap->username);
+		}
+		else if (strcmp(newInput1, newInput2) != 0)
+		{
+			printf("\n\nThe two new passwords don't match!\nFail to reset password of user %s!", userSwap->username);
+		}
+		else if (strlen(newInput1) == 0 || strlen(newInput1) > 20)
+		{
+			printf("\n\nInvalid new password!\nFail to reset password of user %s!", userSwap->username);
+		}
+		else
+		{
+			memset(userSwap->password, '\0', sizeof(userSwap->password));
+			strcpy_s(userSwap->password, 1000, newInput2);
+			printf("\n\nThe password of user %s changed successfully!\n", userSwap->username);
+		}
+		printf("\n\n");
+		system("pause");
+	}
+	else
+	{
+		printf("\nWe are going back!\n");
+		system("pause");
 	}
 }
 
 void managerView()
 {
 	struct user* userSwap;
-	userSwap = userCheckByWhichOne(userStart, 3);
+	userSwap = userCheckByWhichOne(userStart, 2);
 	char userInput[1000];
 	memset(userInput, '\0', sizeof(userInput));
 	while (strcmp(userInput, "exit") != 0)
@@ -467,6 +673,7 @@ void managerView()
 		printf("1) Manage movies\n");
 		printf("2) Manage plays\n");
 		printf("3) View data\n");
+		printf("4) Change password\n");
 
 		printf("\n\nInput exit to quit\n\nYour input: ");
 		gets_s(userInput, 1000);
@@ -481,7 +688,11 @@ void managerView()
 		}
 		else if (strcmp(userInput, "3") == 0)
 		{
-
+			viewDataMenu();
+		}
+		else if (strcmp(userInput, "4") == 0)
+		{
+			changePasswordMenu();
 		}
 	}
 }

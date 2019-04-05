@@ -57,6 +57,12 @@
     <ClCompile Include="manager.c">
       <Filter>源文件\view</Filter>
     </ClCompile>
+    <ClCompile Include="ticketSeller.c">
+      <Filter>源文件\view</Filter>
+    </ClCompile>
+    <ClCompile Include="ticketRelated.c">
+      <Filter>源文件\basic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="usedVariableTypes.h">
@@ -75,6 +81,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="brokenSeatHistory.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ticketRelated.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

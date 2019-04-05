@@ -77,6 +77,8 @@
     <ClCompile Include="stringRelated.c" />
     <ClCompile Include="studioRelated.c" />
     <ClCompile Include="test.c" />
+    <ClCompile Include="ticketRelated.c" />
+    <ClCompile Include="ticketSeller.c" />
     <ClCompile Include="userRelated.c" />
   </ItemGroup>
   <ItemGroup>
@@ -84,6 +86,7 @@
     <ClInclude Include="movieRelated.h" />
     <ClInclude Include="stringRelated.h" />
     <ClInclude Include="studioRelated.h" />
+    <ClInclude Include="ticketRelated.h" />
     <ClInclude Include="usedVariableTypes.h" />
     <ClInclude Include="userRelated.h" />
   </ItemGroup>

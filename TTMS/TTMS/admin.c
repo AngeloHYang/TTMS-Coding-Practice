@@ -47,7 +47,7 @@ void changePassword(int whichUser)
 	{
 		memset(userSwap->password, '\0', sizeof(userSwap->password));
 		strcpy_s(userSwap->password, 1000, newInput2);
-		printf("\n\nThe password of user %s! changed successfully!\n", userSwap->username);
+		printf("\n\nThe password of user %s changed successfully!\n", userSwap->username);
 	}
 	printf("\n\n");
 	system("pause");
