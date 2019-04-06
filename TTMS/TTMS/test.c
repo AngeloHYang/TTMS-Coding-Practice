@@ -7,6 +7,7 @@
 #include "movieRelated.h"
 #include "studioRelated.h"
 #include "brokenSeatHistory.h"
+#include "ticketRelated.h"
 
 void test()
 {
@@ -65,7 +66,13 @@ void test()
 	}
 	printf("Seat History: %d\n", howManyBrokenSeatHistory(brokenSeatHistoryStart));*/
 
-
+	/*
+	printf("There are %d tickets!\n", howManyTicketHistory(ticketHistoryStart));
+	ticketHistoryStart = addTicketHistory(ticketHistoryStart, 1, 1, 1, 1, 1, 1, 1);
+	printf("There are %d tickets!\n", howManyTicketHistory(ticketHistoryStart));
+	printf("Counter: %lld\n", ticketIDCounter);
+	ticketIDCounter++;
+	*/
 
 	printf("The test is over!\n");
 	system("pause");

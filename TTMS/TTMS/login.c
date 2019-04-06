@@ -131,8 +131,11 @@ void welcome()
 		}
 		else if (strcmp(userInput, "4") == 0)
 		{
-			extern void ticketSellerView();
-			ticketSellerView();
+			if (loginWithPassword(userStart, 4) == 1)
+			{
+				extern void ticketSellerView();
+				ticketSellerView();
+			}
 		}
 		else if (strcmp(userInput, "5") == 0)
 		{

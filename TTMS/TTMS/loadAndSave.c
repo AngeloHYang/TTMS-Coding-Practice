@@ -5,6 +5,7 @@
 #include "movieRelated.h"
 #include "studioRelated.h"
 #include "brokenSeatHistory.h"
+#include "ticketRelated.h"
 
 struct user* userStart;
 int today;
@@ -13,6 +14,9 @@ struct studio* studioStart;
 long long int movieIDCounter;
 long long int studioIDCounter;
 struct brokenSeatHistory* brokenSeatHistoryStart;
+long long int ticketIDCounter;
+struct ticketHistory* ticketHistoryStart;
+
 
 void loadData()
 {
@@ -58,6 +62,25 @@ void loadData()
 		fclose(movieIDCounterFile);
 	}
 	printf("Done!\n");
+
+	// Read ticketIDCounter
+	printf("Reading ticketIDCounter...");
+	FILE* ticketIDCounterFile;
+	err = fopen_s(&ticketIDCounterFile, "ticketIDCounter.dat", "rb+");
+	if (ticketIDCounterFile == NULL)
+	{
+		ticketIDCounter = 0;
+	}
+	else
+	{
+		long long int* ticketIDCounterSwap = (long long int*) malloc(sizeof(long long int));
+		fread(ticketIDCounterSwap, sizeof(long long int), 1, ticketIDCounterFile);
+		ticketIDCounter = *ticketIDCounterSwap;
+		free(ticketIDCounterSwap);
+		fclose(ticketIDCounterFile);
+	}
+	printf("Done!\n");
+
 
 	// Read studios
 	printf("Reading studios...");
@@ -167,6 +190,30 @@ void loadData()
 		free(brokenSeatHistorySwap);
 	}
 	printf("Done!\n");
+
+	// Read ticketHistory
+	ticketHistoryStart = NULL;
+	printf("Reading tickets' history...");
+	FILE* ticketHistoryFile;
+	err = fopen_s(&ticketHistoryFile, "ticketHistory.dat", "rb+");
+	if (ticketHistoryFile == NULL)  // If the file doesn't exist.
+	{
+		ticketHistoryStart = NULL;
+	}
+	else
+	{
+		ticketHistoryStart = NULL;
+		struct ticketHistory* ticketHistorySwap = (struct ticketHistory*) malloc(sizeof(struct ticketHistory));
+		fread(ticketHistorySwap, sizeof(struct ticketHistory), 1, ticketHistoryFile);
+		while (feof(ticketHistoryFile) == 0)
+		{
+			ticketHistoryStart = addTicketHistory(ticketHistoryStart, ticketHistorySwap->studioID, ticketHistorySwap->whichLine, ticketHistorySwap->whichColumn, ticketHistorySwap->shouldWatchDay, ticketHistorySwap->ticketID, ticketHistorySwap->movieID, ticketHistorySwap->status);
+			fread(ticketHistorySwap, sizeof(struct ticketHistory), 1, ticketHistoryFile);
+		}
+		fclose(ticketHistoryFile);
+		free(ticketHistorySwap);
+	}
+	printf("Done!\n");
 }
 
 void saveData()
@@ -202,6 +249,24 @@ void saveData()
 		fwrite(movieIDCounterSwap, sizeof(long long int), 1, movieIDCounterFile);
 		free(movieIDCounterSwap);
 		fclose(movieIDCounterFile);
+	}
+	printf("Done!\n");
+
+	// Save ticketIDCounter
+	printf("Saving ticketIDCounter...");
+	FILE* ticketIDCounterFile;
+	err = fopen_s(&ticketIDCounterFile, "ticketIDCounter.dat", "wb+");
+	if (ticketIDCounterFile == NULL)
+	{
+		printf("ticketIDCounterFile error\n");
+	}
+	else
+	{
+		long long int* ticketIDCounterSwap = (long long int*) malloc(sizeof(long long int));
+		*ticketIDCounterSwap = ticketIDCounter;
+		fwrite(ticketIDCounterSwap, sizeof(long long int), 1, ticketIDCounterFile);
+		free(ticketIDCounterSwap);
+		fclose(ticketIDCounterFile);
 	}
 	printf("Done!\n");
 
@@ -271,5 +336,18 @@ void saveData()
 		brokenSeatHistorySwap = brokenSeatHistorySwap->next;
 	}
 	fclose(brokenSeatHistoryFile);
+	printf("Done!\n");
+
+	// Save ticketHistory
+	printf("Saving tickets' history...");
+	FILE* ticketHistoryFile;
+	err = fopen_s(&ticketHistoryFile, "ticketHistory.dat", "wb+");
+	struct ticketHistory* ticketHistorySwap = ticketHistoryStart;
+	while (ticketHistorySwap != NULL)
+	{
+		fwrite(ticketHistorySwap, sizeof(struct ticketHistory), 1, ticketHistoryFile);
+		ticketHistorySwap = ticketHistorySwap->next;
+	}
+	fclose(ticketHistoryFile);
 	printf("Done!\n");
 }

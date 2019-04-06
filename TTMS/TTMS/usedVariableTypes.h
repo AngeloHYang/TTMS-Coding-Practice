@@ -21,10 +21,14 @@ struct studio
 
 struct ticketHistory
 {
-	long long int TicketID;
+	long long int ticketID;
 	long long int movieID;
 	long long int shouldWatchDay;
-	int status; // 0 for not sold, 1 for sold, 2 for watched, 3 for returned.
+	long long int studioID;
+	int whichLine;
+	int whichColumn;
+	int status; // 0 for not sold, 1 for sold(watched), 2 for unable to watch
+	
 
 	struct ticketHistory* next;
 };
@@ -67,3 +71,7 @@ extern long long int studioIDCounter;
 extern struct studio* studioStart;
 
 extern struct brokenSeatHistory* brokenSeatHistoryStart;
+
+extern long long int ticketIDCounter;
+
+extern struct ticketHistory* ticketHistoryStart;

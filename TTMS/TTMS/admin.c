@@ -9,6 +9,7 @@
 #include "studioRelated.h"
 #include "movieRelated.h"
 #include "brokenSeatHistory.h"
+#include "ticketRelated.h"
 
 //  Below are changing password related
 void changePassword(int whichUser)
@@ -213,6 +214,18 @@ void deleteStudioMenu()
 			deleteSpaceInTheEnd(inputSpace, 1000);
 			if (strcmp(inputSpace, "y") == 0)
 			{
+				struct ticketHistory* ticketHistorySwap;
+				printf("Forcely returning tickets...");
+				for (long long int whichTicket = 1; whichTicket <= howManyTicketHistory(ticketHistoryStart); whichTicket++)
+				{
+					ticketHistorySwap = ticketHistoryCheckByWhichOne(ticketHistoryStart, whichTicket);
+					if (ticketHistorySwap->studioID == inputID && ticketHistorySwap->shouldWatchDay >= today)
+					{
+						ticketHistorySwap->status = 2;
+					}
+				}
+				printf("done!\n");
+
 				studioStart = deleteStudioByWhichOne(studioStart, studioWhichOne);
 				printf("\nDeleted successfully!\n");
 				system("pause");
@@ -301,6 +314,22 @@ void ReportABrokenSeatMenu()
 				if (strcmp(inputSpace, "y") == 0)
 				{
 					brokenSeatHistoryStart = addBrokenSeatHistory(brokenSeatHistoryStart, studioSwap->ID, inputLine, inputColumn, startDay, endDay);
+
+					// Returning tickets
+					printf("Forcely returning tickets...");
+					struct ticketHistory* ticketHistorySwap;
+					for (long long int whichDay = startDay; whichDay <= endDay; whichDay++)
+					{
+						for (long long int whichTicket = 1; whichTicket <= howManyTicketHistory(ticketHistoryStart); whichTicket++)
+						{
+							ticketHistorySwap = ticketHistoryCheckByWhichOne(ticketHistoryStart, whichTicket);
+							if (ticketHistorySwap->studioID == inputID && ticketHistorySwap->whichLine == inputLine && ticketHistorySwap->whichColumn == inputColumn && ticketHistorySwap->shouldWatchDay == whichDay)
+							{
+								ticketHistorySwap->status = 2;
+							}
+						}
+					}
+
 					printf("\nReport successfully!\n");
 					system("pause");
 				}

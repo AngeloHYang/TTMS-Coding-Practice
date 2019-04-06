@@ -7,6 +7,7 @@
 #include "brokenSeatHistory.h"
 #include "usedVariableTypes.h"
 #include "userRelated.h"
+#include "ticketRelated.h"
 
 void checkMovieMenu()
 {
@@ -232,17 +233,12 @@ void deleteMovieMenu()
 			gets_s(userInput, 1000);
 			deleteSpaceInTheEnd(userInput, 1000);
 			struct studio* studioSwap;
+			struct ticketHistory* ticketHistorySwap;
 			if (strcmp(userInput, "y") == 0)
 			{
 				printf("We are going to delete the movie...");
 
-				// Come back here and add what to do to tickets
-				if (playingFlag == 1)
-				{
-					;
-				}
-
-				// Clear studio
+				// Clear studio and tickets
 				if (playingFlag == 1)
 				{
 					for (int whichOne = 1; whichOne <= howManyStudios(studioStart); whichOne++)
@@ -250,6 +246,17 @@ void deleteMovieMenu()
 						if (movieIDExistInStudioWhichOne(studioStart, inputID, whichOne) == 1)
 						{
 							studioSwap = studioCheckByWhichOne(studioStart, whichOne);
+
+							// Deal with tickets
+							for (long long int whichTicket = 1; whichTicket <= howManyTicketHistory(ticketHistoryStart); whichTicket++)
+							{
+								ticketHistorySwap = ticketHistoryCheckByWhichOne(ticketHistoryStart, whichTicket);
+								if (ticketHistorySwap->studioID == studioSwap->ID && ticketHistorySwap->shouldWatchDay >= today)
+								{
+									ticketHistorySwap->status = 2;
+								}
+							}
+
 							studioSwap->moviePlayingID = -1;
 						}
 					}
@@ -472,11 +479,26 @@ void linkMovieMenu()
 							printf("Alright then!\n");
 							
 							studioSwap->moviePlayingID = movieSwap->ID;
+
+							//the ticket part!
+							printf("Generating tickets...");
+							for (long long int whichLine = 1; whichLine <= studioSwap->lines; whichLine++)
+							{
+								for (long long int whichColumn = 1; whichColumn <= studioSwap->columns; whichColumn++)
+								{
+									if (seatIsBrokenToday(brokenSeatHistoryStart, today, studioSwap->ID, whichLine, whichColumn) == 0)
+									{
+										ticketIDCounter++;
+										ticketHistoryStart = addTicketHistory(ticketHistoryStart, studioSwap->ID, whichLine, whichColumn, today, ticketIDCounter, studioSwap->moviePlayingID, 0);
+									}
+								}
+							}
+							printf("done!\n");
+
 							printf("Movie linked!\n");
 							printStudioByWhichOne(studioStart, studioWhichOne);
 							
-							// Don't forget to finish the ticket part!
-							printf("Wait 'till the ticket part's finised!\n");
+							
 							system("pause");
 						}
 					}
@@ -530,6 +552,7 @@ void unlinkMovieMenu()
 			else
 			{
 				struct movie* movieSwap = movieCheckByID(studioSwap->moviePlayingID);
+				struct ticketHistory* ticketHistorySwap;
 				printf("Do you want to stop playing movie %s in this studio?(y/n)\n", movieSwap->name);
 				printf("Your choice: ");
 				memset(userInput, '\0', sizeof(userInput));
@@ -539,8 +562,18 @@ void unlinkMovieMenu()
 				{
 					studioSwap->moviePlayingID = -1;
 					printStudioByWhichOne(studioStart, whichStudio);
-					// Come back and deal with ticket issue
-					printf("Don't forget to come back and deal with the ticket issue!\n");
+
+
+					// Deal with tickets
+					for (long long int whichTicket = 1; whichTicket <= howManyTicketHistory(ticketHistoryStart); whichTicket++)
+					{
+						ticketHistorySwap = ticketHistoryCheckByWhichOne(ticketHistoryStart, whichTicket);
+						if (ticketHistorySwap->studioID == studioSwap->ID && ticketHistorySwap->shouldWatchDay == today)
+						{
+							ticketHistorySwap->status = 2;
+						}
+					}
+
 					printf("Movie cancelled!\n");
 					system("pause");
 				}

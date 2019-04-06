@@ -8,6 +8,38 @@
 #include "studioRelated.h"
 #include "userRelated.h"
 
+static void checkStudios()
+{
+	char userInput[1000];
+	memset(userInput, '\0', sizeof(userInput));
+	system("cls");
+	printf("Today: %d\n", today);
+
+	// Check how many busy studios are there
+	long long int counter = 0;
+	struct studio* studioSwap;
+	for (long long int whichStudio = 1; whichStudio <= howManyStudios(studioStart); whichStudio++)
+	{
+		studioSwap = studioCheckByWhichOne(studioStart, whichStudio);
+		if (studioSwap->moviePlayingID != -1)
+		{
+			counter++;
+		}
+	}
+
+	printf("There are %lld studios available:\n", counter);
+	for (long long int whichStudio = 1; whichStudio <= howManyStudios(studioStart); whichStudio++)
+	{
+		studioSwap = studioCheckByWhichOne(studioStart, whichStudio);
+		if (studioSwap->moviePlayingID != -1)
+		{
+			printStudioByWhichOne(studioStart, whichStudio);
+		}
+	}
+	printf("\n\n");
+	system("pause");
+}
+
 void ticketSellerView()
 {
 	struct user* userSwap;
@@ -31,7 +63,7 @@ void ticketSellerView()
 		deleteSpaceInTheEnd(userInput, 1000);
 		if (strcmp(userInput, "1") == 0)
 		{
-			
+			checkStudios();
 		}
 		else if (strcmp(userInput, "2") == 0)
 		{

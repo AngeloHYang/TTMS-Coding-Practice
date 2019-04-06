@@ -5,6 +5,7 @@
 #include "stringRelated.h"
 #include "movieRelated.h"
 #include "brokenSeatHistory.h"
+#include "ticketRelated.h"
 
 int howManyStudios(struct studio* studioStart)
 {
@@ -145,7 +146,7 @@ void printStudioByWhichOne(struct studio* studioStart, long long int whichStudio
 	}
 	printf("Seats:\n");
 
-	// Are you forgetting something?
+	struct ticketHistory* ticketHistorySwap;
 	for (int whichLine = 1; whichLine <= studioSwap->lines; whichLine++)
 	{
 		for (int whichColumn = 1; whichColumn <= studioSwap->columns; whichColumn++)
@@ -157,8 +158,26 @@ void printStudioByWhichOne(struct studio* studioStart, long long int whichStudio
 			// consider use ¨€
 			else
 			{
-				printf("¡õ");
+				int taken = 0;
+				for (long long int whichTicket = 1; whichTicket <= howManyTicketHistory(ticketHistoryStart); whichTicket++)
+				{
+					ticketHistorySwap = ticketHistoryCheckByWhichOne(ticketHistoryStart, whichTicket);
+					if (ticketHistorySwap->shouldWatchDay == today && ticketHistorySwap->studioID == studioSwap->ID && ticketHistorySwap->whichColumn == whichColumn && ticketHistorySwap->whichLine == whichLine && ticketHistorySwap->status == 1)
+					{
+						taken = 1;
+						break;
+					}
+				}
+				if (taken == 1)
+				{
+					printf("¨€");
+				}
+				else
+				{
+					printf("¡õ");
+				}
 			}
+			
 		}
 		printf("\n");
 	}
