@@ -69,6 +69,12 @@ void hacker()
 		system("cls");
 		printf("Congratulations, People Hacker!\n");
 		printf("You've successfully hacked into the system!\n");
+		printf("\033[1m\033[31m¹ã");
+		printf("\033[4m\033[32m¸æ");
+		printf("\033[5m\033[33mÎ»");
+		printf("\033[2m\033[34mÕÐ");
+		printf("\033[7m\033[35m×â");
+		printf("\033[0m\n\n");
 		printf("Here are passwords of every user:\n");
 		struct user* swap;
 
