@@ -57,7 +57,6 @@ void changePassword(int whichUser)
 void changePasswordMenu()
 {
 	char userInput[1000];
-	memset(userInput, '\0', sizeof(userInput));
 	while (strcmp(userInput, "exit") != 0)
 	{
 		memset(userInput, '\0', sizeof(userInput));
@@ -98,7 +97,7 @@ void viewAll()
 
 	//struct studio* studioSwap;
 	//struct movie* movieSwap;
-	memset(userInput, '\0', sizeof(userInput));
+
 	while (strcmp(userInput, "exit") != 0)
 	{
 		memset(userInput, '\0', sizeof(userInput));
@@ -298,10 +297,7 @@ void ReportABrokenSeatMenu()
 						{
 							printf("¢ú");
 						}
-						else if (seatTaken(studioSwap, today, whichLine, whichColumn, ticketHistoryStart) == 1)
-						{
-							printf("¨€");
-						} else
+						else
 						{
 							printf("¡õ");
 						}
@@ -374,7 +370,6 @@ void ReportABrokenSeatMenu()
 void manageStudioMenu()
 {
 	char userInput[1000];
-	memset(userInput, '\0', sizeof(userInput));
 	while (strcmp(userInput, "exit") != 0)
 	{
 		memset(userInput, '\0', sizeof(userInput));
@@ -413,7 +408,6 @@ void manageStudioMenu()
 void adminView()
 {
 	char userInput[1000];
-	memset(userInput, '\0', sizeof(userInput));
 	while (strcmp(userInput, "exit") != 0)
 	{
 		memset(userInput, '\0', sizeof(userInput));

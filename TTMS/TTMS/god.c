@@ -3,22 +3,12 @@
 #include <string.h>
 #include "usedVariableTypes.h"
 #include "stringRelated.h"
-#include "studioRelated.h"
 
 void nextDay()
 {
 	system("cls");
 	printf("God wielded their magic stick and turned the day from %d into %d!\n\n", today, today + 1);
 	today++;
-
-	// Deal with studios
-	struct studio* studioSwap;
-	for (long long int whichStudio = 1; whichStudio <= howManyStudios(studioStart); whichStudio++)
-	{
-		studioSwap = studioCheckByWhichOne(studioStart, whichStudio);
-		studioSwap->moviePlayingID = -1;
-	}
-
 	system("pause");
 }
 

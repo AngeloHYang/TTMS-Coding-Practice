@@ -5,7 +5,3 @@ extern struct ticketHistory* addTicketHistory(struct ticketHistory* ticketHistor
 extern struct ticketHistory* ticketHistoryCheckByWhichOne(struct ticketHistory* ticketHistoryStart, long long int whichOne);
 
 extern struct ticketHistory* ticketHistoryCheckByID(long long int inputID);
-
-extern struct ticketHistory* unsoldOrWatchedTicketHistoryCheckByStudioAndPlaceAndDay(struct ticketHistory* ticketHistoryStart, struct studio* studioSwap, int today, int whichLine, int whichColumn);
-
-extern void printTicket(struct ticketHistory* ticketHistorySwap);

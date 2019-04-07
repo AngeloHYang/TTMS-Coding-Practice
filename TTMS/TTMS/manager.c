@@ -9,8 +9,6 @@
 #include "userRelated.h"
 #include "ticketRelated.h"
 
-extern void viewDataMenu();
-
 void checkMovieMenu()
 {
 	char userInput[1000];
@@ -623,6 +621,18 @@ void managePlayMenu()
 			unlinkMovieMenu();
 		}
 	}
+}
+
+void viewDataMenu()
+{
+	system("cls");
+	printf("\033[1m\033[31m¹ã");
+	printf("\033[4m\033[32m¸æ");
+	printf("\033[5m\033[33mÎ»");
+	printf("\033[2m\033[34mÕÐ");
+	printf("\033[7m\033[35m×â");
+	printf("\033[0m\n\n");
+	system("pause");
 }
 
 static void changePasswordMenu()

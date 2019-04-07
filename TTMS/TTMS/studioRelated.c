@@ -117,7 +117,7 @@ int studioCheckByIDAndReturnWhichOne(struct studio* studioStart, long long int i
 int seatExist(struct studio* studioStart, long long int inputID, int whichLine, int whichColumn)
 {
 	struct studio* studioSwap = studioCheckByWhichOne(studioStart, studioCheckByIDAndReturnWhichOne(studioStart, inputID));
-	if (whichColumn <= studioSwap->columns && whichColumn >= 1 && whichLine <= studioSwap->lines && whichLine >= 1)
+	if (whichColumn <= studioSwap->columns && whichColumn >= 1 && whichLine <= studioSwap->lines && whichColumn >= 0)
 	{
 		return 1;
 	}
@@ -125,22 +125,6 @@ int seatExist(struct studio* studioStart, long long int inputID, int whichLine, 
 	{
 		return 0;
 	}
-}
-
-int seatTaken(struct studio* studioSwap, int today, int whichLine, int whichColumn, struct ticketHistory* ticketHistoryStart)
-{
-	int taken = 0;
-	struct ticketHistory* ticketHistorySwap;
-	for (long long int whichTicket = 1; whichTicket <= howManyTicketHistory(ticketHistoryStart); whichTicket++)
-	{
-		ticketHistorySwap = ticketHistoryCheckByWhichOne(ticketHistoryStart, whichTicket);
-		if (ticketHistorySwap->shouldWatchDay == today && ticketHistorySwap->studioID == studioSwap->ID && ticketHistorySwap->whichColumn == whichColumn && ticketHistorySwap->whichLine == whichLine && ticketHistorySwap->status == 1)
-		{
-			taken = 1;
-			break;
-		}
-	}
-	return taken;
 }
 
 void printStudioByWhichOne(struct studio* studioStart, long long int whichStudio)
@@ -162,6 +146,7 @@ void printStudioByWhichOne(struct studio* studioStart, long long int whichStudio
 	}
 	printf("Seats:\n");
 
+	struct ticketHistory* ticketHistorySwap;
 	for (int whichLine = 1; whichLine <= studioSwap->lines; whichLine++)
 	{
 		for (int whichColumn = 1; whichColumn <= studioSwap->columns; whichColumn++)
@@ -173,7 +158,17 @@ void printStudioByWhichOne(struct studio* studioStart, long long int whichStudio
 			// consider use ¨€
 			else
 			{
-				if (seatTaken(studioSwap, today, whichLine, whichColumn, ticketHistoryStart) == 1)
+				int taken = 0;
+				for (long long int whichTicket = 1; whichTicket <= howManyTicketHistory(ticketHistoryStart); whichTicket++)
+				{
+					ticketHistorySwap = ticketHistoryCheckByWhichOne(ticketHistoryStart, whichTicket);
+					if (ticketHistorySwap->shouldWatchDay == today && ticketHistorySwap->studioID == studioSwap->ID && ticketHistorySwap->whichColumn == whichColumn && ticketHistorySwap->whichLine == whichLine && ticketHistorySwap->status == 1)
+					{
+						taken = 1;
+						break;
+					}
+				}
+				if (taken == 1)
 				{
 					printf("¨€");
 				}

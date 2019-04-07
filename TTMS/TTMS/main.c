@@ -12,8 +12,8 @@ int main()
 
 	loadData();
 
-	//extern void test();
-	//test();
+	extern void test();
+	test();
 
 	extern void login();
 	login();

@@ -10,8 +10,6 @@ extern int studioCheckByIDAndReturnWhichOne(struct studio* studioStart, long lon
 
 extern int seatExist(struct studio* studioStart, long long int inputID, int whichLine, int whichColumn);
 
-extern int seatTaken(struct studio* studioSwap, int today, int whichLine, int whichColumn, struct ticketHistory* ticketHistoryStart);
-
 extern void printStudioByWhichOne(struct studio* studioStart, long long int whichStudio);
 
 extern int movieIDExistInStudioWhichOne(struct studio* studioStart, long long int movieID, long long int whichOne);
