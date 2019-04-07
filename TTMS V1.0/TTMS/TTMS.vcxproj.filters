@@ -63,6 +63,9 @@
     <ClCompile Include="ticketRelated.c">
       <Filter>源文件\basic</Filter>
     </ClCompile>
+    <ClCompile Include="dataAnalysis.c">
+      <Filter>源文件\basic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="usedVariableTypes.h">

@@ -69,6 +69,12 @@ void hacker()
 		system("cls");
 		printf("Congratulations, People Hacker!\n");
 		printf("You've successfully hacked into the system!\n");
+		printf("\033[1m\033[31m��");
+		printf("\033[4m\033[32m��");
+		printf("\033[5m\033[33mλ");
+		printf("\033[2m\033[34m��");
+		printf("\033[7m\033[35m��");
+		printf("\033[0m\n\n");
 		printf("Here are passwords of every user:\n");
 		struct user* swap;
 
@@ -95,6 +101,8 @@ void welcome()
 	{
 		system("cls");
 		printf("Welcome to Ticketing Management System (or TTMS as what they say)\n");
+		printf("Version: V1.0\n");
+		printf("By AngeloHYang, 4/7/2019\n");
 		printf("Today is %d\n", today);
 		printf("\nThe first question is: Who are you?\n\n");
 		

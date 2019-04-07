@@ -14,19 +14,20 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{C274DDDB-2E44-4F42-9F6F-ABEF096E8D80}</ProjectGuid>
     <RootNamespace>TTMS</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>TTMS</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -68,6 +69,7 @@
   <ItemGroup>
     <ClCompile Include="admin.c" />
     <ClCompile Include="brokenSeatRelated.c" />
+    <ClCompile Include="dataAnalysis.c" />
     <ClCompile Include="god.c" />
     <ClCompile Include="loadAndSave.c" />
     <ClCompile Include="login.c" />
