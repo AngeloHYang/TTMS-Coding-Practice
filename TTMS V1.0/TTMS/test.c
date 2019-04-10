@@ -73,6 +73,8 @@ void test()
 	printf("Counter: %lld\n", ticketIDCounter);
 	ticketIDCounter++;
 	*/
+	char testArray[] = "123a21";
+	printf("%d\n", inputStringToInt(testArray, 6));
 
 	printf("The test is over!\n");
 	system("pause");

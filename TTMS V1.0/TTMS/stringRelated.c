@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <conio.h>
+#include <ctype.h>
 
 void addLetterToString(char* inputStringSpace, int maxSize, char inputLetter) 
 // If too long, exceeded letters will be ignored.
@@ -73,5 +74,30 @@ void deleteSpaceInTheEnd(char* inputStringSpace, int maxSize)
 	{
 		inputStringSpace[whichOne] = '\0';
 		whichOne--;
+	}
+}
+
+int inputStringToInt(char* inputString, long long int maxSize)
+{
+	//inputString[maxSize - 1] = '\0';
+	int correct = 1;
+	for (int whichDigit = 0; whichDigit < strlen(inputString); whichDigit++)
+	{
+		if (isdigit(inputString[whichDigit] == 0))
+		{
+			correct = 0;
+		}
+	}
+	if (strlen(inputString) > maxSize - 1)
+	{
+		correct = 0;
+	}
+	if (correct == 1)
+	{
+		return atoi(inputString);
+	}
+	else
+	{
+		return -1;
 	}
 }

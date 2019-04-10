@@ -11,4 +11,6 @@ extern void removeLastLetterInString(char* inputStringSpace, int maxSize);
 extern char* inputPassword(char* inputStringSpace, int maxSize);
 
 extern void deleteSpaceInTheEnd(char* inputStringSpace, int maxSize);
+
+extern int inputStringToInt(char* inputString, int maxSize);
 //#endif
