@@ -3,6 +3,7 @@
 #include <stdlib.h>
 
 #include "stringRelated.h"
+#include "timeRelated.h"
 
 
 int printMiddleAddjusted(char* inputThings, int maxSize)
@@ -87,3 +88,73 @@ int printWithStartPlace(char* inputThings, int startPlace, int maxSize)
 		return 0;
 	}
 }
+
+void anotherLine(int lines)
+{
+	for (long long int whichOne = 1; whichOne <= lines; whichOne++)
+	printf("\n");
+}
+
+void printTitle(char* title, int maxSize)
+// This takes three lines with no wordwarp
+{
+	int size = strlen(title);
+	if (size > maxSize)
+	{
+		size = maxSize;
+	}
+	for (long long int whichOne = 1; whichOne <= strlen(title) + 6; whichOne++)
+	{
+		printf("-");
+	}
+	printf("\n");
+	printf("-| ");
+	printf("%s", title);
+	printf(" |-\n");
+	for (long long int whichOne = 1; whichOne <= strlen(title) + 6; whichOne++)
+	{
+		printf("-");
+	}
+}
+
+void printMultipleTimes(char character, int times)
+{
+	for (long long int whichTime = 1; whichTime <= times; whichTime++)
+	{
+		printf("%c", character);
+	}
+}
+
+void printTitleWithCurrentTime(char* title, int maxSize)
+// This takes three lines with no wordwarp
+{
+	int size = strlen(title);
+	if (size > maxSize)
+	{
+		size = maxSize;
+	}
+	for (long long int whichOne = 1; whichOne <= strlen(title) + 6; whichOne++)
+	{
+		printf("-");
+	}
+	printf("\n");
+	printf("-| ");
+	printf("%s", title);
+	printf(" |-");
+	printMultipleTimes(' ', 100 - timeStringLength(currentSecond()) - strlen(title) - 6);
+	printTimeString(currentSecond());
+	printf("\n");
+	for (long long int whichOne = 1; whichOne <= strlen(title) + 6; whichOne++)
+	{
+		printf("-");
+	}
+}
+
+void print_(int howMany)
+{
+	for (long long int whichOne = 1; whichOne <= howMany; whichOne++)
+	{
+		printf("_");
+	}
+}
+

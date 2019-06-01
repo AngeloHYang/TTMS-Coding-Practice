@@ -1,12 +1,15 @@
-﻿// Every basic move you want to do to a string is here!
+// Every basic move you want to do to a string is here!
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 #include <conio.h>
-#include <ctype.h>
+#include <cctype>
 
-void addLetterToString(char* inputStringSpace, int maxSize, char inputLetter)
+#include <iostream>
+using namespace std;
+
+void addLetterToString(char* inputStringSpace, int maxSize, char inputLetter) 
 // If too long, exceeded letters will be ignored.
 {
 	int whichOne = 0;
@@ -77,29 +80,21 @@ void deleteSpaceInTheEnd(char* inputStringSpace, int maxSize)
 	}
 }
 
-int inputStringToInt(char* inputString, int maxSize)
-// If invalid, return -1
+int inputStringToInt(char* inputString, long long int maxSize)
 {
-	
+	//inputString[maxSize - 1] = '\0';
 	int correct = 1;
-
-	// Check if there're strange characters other than '0' to '9'
 	for (int whichDigit = 0; whichDigit < strlen(inputString); whichDigit++)
 	{
 		if (isdigit(inputString[whichDigit] == 0))
-		// isdigit is from <ctype.h>
 		{
 			correct = 0;
 		}
 	}
-
-	// Check if the number is too large
-	if (strlen(inputString) > 10)
+	if (strlen(inputString) > maxSize - 1)
 	{
 		correct = 0;
 	}
-
-	// If everything's fine
 	if (correct == 1)
 	{
 		return atoi(inputString);

@@ -21,15 +21,17 @@
   <ItemGroup>
     <ClCompile Include="color.c" />
     <ClCompile Include="main.c" />
-    <ClCompile Include="menuBar.c" />
+    <ClCompile Include="printChoices.c" />
     <ClCompile Include="selectMenu.c" />
     <ClCompile Include="stringRelated.c" />
     <ClCompile Include="test.c" />
+    <ClCompile Include="timeRelated.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="color.h" />
-    <ClInclude Include="menuBar.h" />
+    <ClInclude Include="printChoices.h" />
     <ClInclude Include="stringRelated.h" />
+    <ClInclude Include="timeRelated.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

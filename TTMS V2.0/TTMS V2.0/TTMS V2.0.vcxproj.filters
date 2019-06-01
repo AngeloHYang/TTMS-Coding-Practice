@@ -42,11 +42,14 @@
     <ClCompile Include="color.c">
       <Filter>源文件\Basic</Filter>
     </ClCompile>
-    <ClCompile Include="menuBar.c">
-      <Filter>源文件\Basic</Filter>
-    </ClCompile>
     <ClCompile Include="selectMenu.c">
       <Filter>源文件\template</Filter>
+    </ClCompile>
+    <ClCompile Include="printChoices.c">
+      <Filter>源文件\Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="timeRelated.c">
+      <Filter>源文件\Basic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -56,7 +59,10 @@
     <ClInclude Include="stringRelated.h">
       <Filter>头文件\Basic</Filter>
     </ClInclude>
-    <ClInclude Include="menuBar.h">
+    <ClInclude Include="printChoices.h">
+      <Filter>头文件\Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="timeRelated.h">
       <Filter>头文件\Basic</Filter>
     </ClInclude>
   </ItemGroup>
