@@ -1,4 +1,4 @@
-// Every basic move you want to do to a string is here!
+﻿// Every basic move you want to do to a string is here!
 // This is the header of its.
 
 //#ifndef _stringRelated_
@@ -13,4 +13,5 @@ extern char* inputPassword(char* inputStringSpace, int maxSize);
 extern void deleteSpaceInTheEnd(char* inputStringSpace, int maxSize);
 
 extern int inputStringToInt(char* inputString, int maxSize);
+
 //#endif

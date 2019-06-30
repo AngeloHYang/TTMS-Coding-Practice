@@ -1,13 +1,16 @@
-#include <stdio.h>
-#include <string.h>
+#include <cstdio>
+#include <cstring>
 #include "stringRelated.h"
-#include <stdlib.h>
+#include <cstdlib>
 #include "userRelated.h"
 #include "usedVariableTypes.h"
 #include "movieRelated.h"
 #include "studioRelated.h"
 #include "brokenSeatHistory.h"
 #include "ticketRelated.h"
+
+#include <iostream>
+using namespace std;
 
 void test()
 {
@@ -73,10 +76,10 @@ void test()
 	printf("Counter: %lld\n", ticketIDCounter);
 	ticketIDCounter++;
 	*/
-	/*
-	char testArray[] = "123a21";
-	printf("%d\n", inputStringToInt(testArray, 6));
 
-	printf("The test is over!\n");*/
-	system("pause");
+	//char testArray[] = "123a21";
+	//printf("%d\n", inputStringToInt(testArray, 6));
+
+	//printf("The test is over!\n");
+	//system("pause");
 }

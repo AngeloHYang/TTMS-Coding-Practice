@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="源文件\UI">
+      <UniqueIdentifier>{b00e9ffd-9362-42ab-964e-d0b6ac26285a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Basic">
+      <UniqueIdentifier>{06769b90-82a9-41ea-8eee-f1aa8921939d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Handy">
+      <UniqueIdentifier>{dd594467-279a-4eaa-885a-439bd86a87c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Basic">
+      <UniqueIdentifier>{aa1919e0-5f94-4382-8d6d-333228f23f1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\template">
+      <UniqueIdentifier>{d357d4bb-93fe-48ce-ab62-f001c2731088}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="test.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="main.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="stringRelated.c">
+      <Filter>源文件\Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="color.c">
+      <Filter>源文件\Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="selectMenu.c">
+      <Filter>源文件\template</Filter>
+    </ClCompile>
+    <ClCompile Include="printChoices.c">
+      <Filter>源文件\Basic</Filter>
+    </ClCompile>
+    <ClCompile Include="timeRelated.c">
+      <Filter>源文件\Basic</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="color.h">
+      <Filter>头文件\Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="stringRelated.h">
+      <Filter>头文件\Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="printChoices.h">
+      <Filter>头文件\Basic</Filter>
+    </ClInclude>
+    <ClInclude Include="timeRelated.h">
+      <Filter>头文件\Basic</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

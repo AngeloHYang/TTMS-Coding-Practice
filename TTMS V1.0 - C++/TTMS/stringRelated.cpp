@@ -1,10 +1,13 @@
 // Every basic move you want to do to a string is here!
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 #include <conio.h>
-#include <ctype.h>
+#include <cctype>
+
+#include <iostream>
+using namespace std;
 
 void addLetterToString(char* inputStringSpace, int maxSize, char inputLetter) 
 // If too long, exceeded letters will be ignored.

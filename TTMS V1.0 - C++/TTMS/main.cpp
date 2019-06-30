@@ -1,5 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
+#include <iostream>
+using namespace std;
 
 extern void loadData();
 extern void saveData();
